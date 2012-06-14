@@ -29,7 +29,7 @@ namespace Geopeana
             base.OnNavigatedTo(e);
 
             string msg = "";
-            
+
             if (NavigationContext.QueryString.TryGetValue("selectedItem", out msg))
             {
                 guid = msg;
@@ -53,12 +53,18 @@ namespace Geopeana
 
         void gps_posFoundEvent(double lat, double lon)
         {
-            LocationData.Instance[guid] = new SimpleCoordinates(lon, lat);          
+            LocationData.Instance[guid] = new SimpleCoordinates(lon, lat);
         }
-             
 
-       
+        // pin it, fav it, share it!
+        private void FavIt_Click(object sender, RoutedEventArgs e)
+        {
+
         }
+
+
+
+    }
 
         
     
