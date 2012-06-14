@@ -46,8 +46,8 @@ namespace Geopeana
 
         private void PinIt_Click(object sender, RoutedEventArgs e)
         {
-            //GPS gps = new GPS();
-            //gps.posFoundEvent += new GPS.posFound(gps_posFoundEvent);
+            GPS gps = new GPS();
+            gps.posFoundEvent += new GPS.posFound(gps_posFoundEvent);
             NavigationService.Navigate(new Uri("/SuccessPage.xaml", UriKind.Relative));
         }
 

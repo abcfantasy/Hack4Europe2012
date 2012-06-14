@@ -23,12 +23,14 @@ namespace Geopeana
         public delegate void imageFound(string imageUrl, string detailsUrl);
         public event imageFound imageFoundEvent;
 
+        public const string APIkey = "ZICPOGYUWT";
+
         public void getImageInfo(string guid)
         {
             WebClient Europeana = new WebClient();
 
             Europeana.DownloadStringCompleted += new DownloadStringCompletedEventHandler(Europeana_DownloadStringCompleted);
-            Europeana.DownloadStringAsync(new Uri(guid));
+            Europeana.DownloadStringAsync(new Uri(xmlUrl(guid)));
         }
 
         void Europeana_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
@@ -39,6 +41,16 @@ namespace Geopeana
             string imageUrl = xmlItems.Element(srw + "records").Element(srw + "record").Element(srw + "recordData").Element(dc + "dc").Element(europeana + "object") != null ? xmlItems.Element(srw + "records").Element(srw + "record").Element(srw + "recordData").Element(dc + "dc").Element(europeana + "object").Value : "";
             string europeanaLink = xmlItems.Element(srw + "records").Element(srw + "record").Element(srw + "recordData").Element(dc + "dc").Element(europeana + "object") != null ? xmlItems.Element(srw + "records").Element(srw + "record").Element(srw + "recordData").Element(dc + "dc").Element(europeana + "uri").Value : "";
             if (imageFoundEvent != null) imageFoundEvent(imageUrl, europeanaLink);
+        }
+
+        string xmlUrl(string guid)
+        {
+            char[] delimiterChars = {'.'};
+            string[] part = guid.Split(delimiterChars);
+            string url = "";
+            for (int i = 0; i < part.Length - 1; i++)
+                url += part[i];
+            return url + ".srw?wskey=" + APIkey;
         }
     }
 }
