@@ -39,7 +39,10 @@ namespace Geopeana
             XElement xmlItems = XElement.Parse(e.Result);
 
             if (xmlItems.Element("channel").Element("item") == null)
+            {
+                if (searchDoneEvent != null) searchDoneEvent(null);
                 return;
+            }
 
             SearchResults = xmlItems;
             if (searchDoneEvent != null) searchDoneEvent(SearchResults);

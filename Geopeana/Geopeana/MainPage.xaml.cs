@@ -102,6 +102,13 @@ namespace Geopeana
         //Show the searchresults in the list
         void EuropeanaAPI_searchDoneEvent(XElement SearchResults){
 
+            if (SearchResults == null)
+            {
+                prog.IsIndeterminate = false;
+                prog.IsVisible = false;
+                return;
+            }
+
         ResultsListBox.ItemsSource = from item in SearchResults.Element("channel").Descendants("item")
                                         select new EUPItem
                                         {
@@ -110,10 +117,9 @@ namespace Geopeana
                                             Title = item.Element("title").Value
                                         };
         if(ResultsListBox.Items.Count>0)
-            Dispatcher.BeginInvoke(new Action(delegate() {ResultsListBox.ScrollIntoView(ResultsListBox.Items[0]);}));
+            Dispatcher.BeginInvoke(new Action(delegate() {ResultsListBox.ScrollIntoView(ResultsListBox.Items[0]); }));
         prog.IsIndeterminate = false;
         prog.IsVisible = false;
-
         }
      
        
