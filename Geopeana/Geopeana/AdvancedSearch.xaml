@@ -28,8 +28,6 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <toolkit:DatePicker HorizontalAlignment="Right" Margin="0,31,108,0" Name="datePicker1" VerticalAlignment="Top" Width="110" ValueStringFormat="{}{0:yyyy}" />
-            <toolkit:DatePicker HorizontalAlignment="Left" Margin="238,109,0,0" Name="datePicker2" ValueStringFormat="{}{0:yyyy}" VerticalAlignment="Top" Width="110" />
             <Slider Height="84" HorizontalAlignment="Left" Margin="27,187,0,0" Name="slider1" VerticalAlignment="Top" Width="400" Maximum="2012" Minimum="400" />
         </Grid>
     </Grid>
