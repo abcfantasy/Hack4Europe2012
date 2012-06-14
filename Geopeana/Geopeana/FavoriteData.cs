@@ -17,6 +17,8 @@ namespace Geopeana
     {
         IsolatedStorageSettings storage;
         private List<string> data;
+        public delegate void favoriteImageFound(EUPItem item);
+        public event favoriteImageFound favoriteImageFoundEvent;
 
         private static readonly int HISTORY_SIZE = 5;
 
@@ -32,11 +34,13 @@ namespace Geopeana
 
         public void AddToFavorites(string guid)
         {
-            if (data.Count == 1)
+            /*if (data.Count == 1)
             {
                 if (data[0] == "No recent entries")
                     data.Clear();
-            }
+            }*/
+            if (data.Contains(guid))
+                return;
 
             if (data.Count < HISTORY_SIZE)
                 data.Add(guid);
@@ -45,6 +49,11 @@ namespace Geopeana
                 data.Insert(0, guid);
                 data.RemoveAt(data.Count - 1);
             }
+        }
+
+        public bool Contains(string value)
+        {
+            return data.Contains(value);
         }
 
         public void Save()
@@ -56,9 +65,27 @@ namespace Geopeana
             storage.Save();
         }
 
-        public List<string> Retrieve()
+        public void Retrieve()
         {
-            return data;
+            GuidHelper guidHelper = new GuidHelper();
+            guidHelper.imageFoundEvent += new GuidHelper.imageFound(guidHelper_imageFoundEvent);
+
+            foreach (var d in data)
+            {
+                guidHelper.getImageInfo(d);
+            }
+
+            //return data;
+        }
+
+        void guidHelper_imageFoundEvent(string imageUrl, string detailsUrl)
+        {
+            EUPItem item = new EUPItem();
+            item.Thumbnail = imageUrl;
+            item.Link = detailsUrl;
+
+            if (favoriteImageFoundEvent != null)
+                favoriteImageFoundEvent(item);
         }
 
         #region Singleton instance
@@ -71,7 +98,7 @@ namespace Geopeana
                 if (instance == null)
                 {
                     instance = new FavoriteData();
-                    instance.AddToFavorites("No recent entries");
+                    //instance.AddToFavorites("No recent entries");
                 }
 
                 return instance;

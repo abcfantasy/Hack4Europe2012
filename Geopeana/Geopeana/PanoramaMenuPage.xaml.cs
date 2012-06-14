@@ -21,13 +21,30 @@ namespace Geopeana
             browseTextBlock.MouseLeftButtonDown += new MouseButtonEventHandler(browseTextBlock_MouseLeftButtonDown);
             MapTextBlock.MouseLeftButtonDown += new MouseButtonEventHandler(MapTextBlock_MouseLeftButtonDown);
             RecentData.Instance.recentImageFoundEvent += new RecentData.recentImageFound(Instance_recentImageFoundEvent);
+            FavoriteData.Instance.favoriteImageFoundEvent += new FavoriteData.favoriteImageFound(Instance_favoriteImageFoundEvent);
             //RecentListBox.ItemsSource = RecentData.Instance.Retrieve();
             //FavoritesListBox.ItemsSource = FavoriteData.Instance.Retrieve();
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            RecentListBox.Items.Clear();
+            FavoritesListBox.Items.Clear();
+
+            RecentData.Instance.Retrieve();
+            FavoriteData.Instance.Retrieve();
         }
 
         void Instance_recentImageFoundEvent(EUPItem item)
         {
             RecentListBox.Items.Add(item);
+        }
+
+        void Instance_favoriteImageFoundEvent(EUPItem item)
+        {
+            FavoritesListBox.Items.Add(item);
         }
 
         private void browseTextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -57,6 +74,18 @@ namespace Geopeana
 
             // Reset selected index to -1 (no selection)
             RecentListBox.SelectedIndex = -1;
+        }
+
+        private void FavoriteSelectionChangedHandler(object sender, SelectionChangedEventArgs e)
+        {
+            if (FavoritesListBox.SelectedIndex == -1)
+                return;
+
+            // Navigate to the entry's page
+            NavigationService.Navigate(new Uri("/Details.xaml?selectedItem=" + ((EUPItem)FavoritesListBox.SelectedItem).Link, UriKind.Relative));
+
+            // Reset selected index to -1 (no selection)
+            FavoritesListBox.SelectedIndex = -1;
         }
     }
 }

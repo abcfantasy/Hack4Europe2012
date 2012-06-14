@@ -38,6 +38,12 @@ namespace Geopeana
                 // Add to recent entry visits
                 RecentData.Instance.AddToRecent(guid);
 
+                if (FavoriteData.Instance.Contains(guid))
+                {
+                    buttonFav.Content = "Faved!";
+                    buttonFav.IsEnabled = false;
+                }
+
                 try
                 {
                     webBrowser1.Navigate(new Uri(msg));
@@ -65,6 +71,8 @@ namespace Geopeana
         private void FavIt_Click(object sender, RoutedEventArgs e)
         {
             FavoriteData.Instance.AddToFavorites(guid);
+            buttonFav.Content = "Faved!";
+            buttonFav.IsEnabled = false;
         }
     }
 }

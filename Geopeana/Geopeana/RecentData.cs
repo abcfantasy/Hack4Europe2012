@@ -34,11 +34,11 @@ namespace Geopeana
 
         public void AddToRecent(string guid)
         {
-            if (data.Count == 1)
+            /*if (data.Count == 1)
             {
                 if (data[0] == "No recent entries")
                     data.Clear();
-            }
+            }*/
 
             if (data.Count < HISTORY_SIZE)
                 data.Add(guid);
@@ -58,7 +58,7 @@ namespace Geopeana
             storage.Save();
         }
 
-        public List<string> Retrieve()
+        public void Retrieve()
         {
             GuidHelper guidHelper = new GuidHelper();
             guidHelper.imageFoundEvent += new GuidHelper.imageFound(guidHelper_imageFoundEvent);
@@ -68,7 +68,7 @@ namespace Geopeana
                 guidHelper.getImageInfo(d);
             }
 
-            return data;
+            //return data;
         }
 
         void guidHelper_imageFoundEvent(string imageUrl, string detailsUrl)
@@ -91,7 +91,7 @@ namespace Geopeana
                 if (instance == null)
                 {
                     instance = new RecentData();
-                    instance.AddToRecent("No recent entries");
+                    //instance.AddToRecent("No recent entries");
                 }
 
                 return instance;
