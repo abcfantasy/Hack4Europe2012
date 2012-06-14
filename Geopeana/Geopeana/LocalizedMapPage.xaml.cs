@@ -30,8 +30,8 @@ namespace Geopeana
             InitializeComponent();
 
             // test data
-            LocationData.Instance["http://www.europeana.eu/portal/record/08547/6A0C00645813BEF4B4D7CDB36AFAFB9524B99F97.html"] = new SimpleCoordinates(14.508628, 35.896);
-            LocationData.Instance["bcd"] = new SimpleCoordinates(14.505367, 35.894453);
+            //LocationData.Instance["http://www.europeana.eu/portal/record/08547/6A0C00645813BEF4B4D7CDB36AFAFB9524B99F97.html"] = new SimpleCoordinates(14.508628, 35.896);
+            //LocationData.Instance["bcd"] = new SimpleCoordinates(14.505367, 35.894453);
 
             GPS gps = new GPS();
             gps.posFoundEvent += new GPS.posFound(gps_posFoundEvent);
