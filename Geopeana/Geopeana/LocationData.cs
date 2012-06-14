@@ -44,8 +44,11 @@ namespace Geopeana
             }
             set
             {
-                data.Add(guid, value);
-                Save();
+                if (!data.ContainsKey(guid))
+                {
+                    data.Add(guid, value);
+                    Save();
+                }
             }
         }
 
