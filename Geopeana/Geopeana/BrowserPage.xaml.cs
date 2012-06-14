@@ -130,6 +130,10 @@ namespace Geopeana
         {
             if (CityBox.Text.Length > 0)
             {
+                page = 0;
+                searchInProgress = true;
+                ResultsListBox.Items.Clear();
+
                 prog.IsIndeterminate = true;
                 prog.IsVisible = true;
                 EuropeanaAPI.lookup(CityBox.Text);
