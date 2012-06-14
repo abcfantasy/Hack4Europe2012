@@ -33,6 +33,8 @@ namespace Geopeana
             
             if ( storage.Contains("data") )
                 data = (Dictionary<string, SimpleCoordinates>)storage["data"];
+            else
+                data = new Dictionary<string, SimpleCoordinates>();
         }
 
         // indexer to get or add entries
@@ -77,7 +79,7 @@ namespace Geopeana
                 if (instance == null)
                 {
                     instance = new LocationData();
-                    instance.data = new Dictionary<string, SimpleCoordinates>();
+                    //instance.data = new Dictionary<string, SimpleCoordinates>();
                 }
                 return instance;
             }
