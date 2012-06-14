@@ -27,7 +27,19 @@
             <!--Panorama item two-->
             <controls:PanoramaItem Header="Recent" Tag="Recent">
                 <Grid>
-                    <ListBox Height="498" HorizontalAlignment="Left" Margin="2,0,0,0" Name="RecentListBox" SelectionChanged="RecentSelectionChangedHandler" VerticalAlignment="Top" Width="420" />
+                    <ListBox Height="498" HorizontalAlignment="Left" Margin="2,0,0,0" Name="RecentListBox" SelectionChanged="RecentSelectionChangedHandler" VerticalAlignment="Top" Width="420" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Height="456">
+                                    <Image Source="{Binding Thumbnail}" Height="456" Width="456" VerticalAlignment="Top" Margin="0,10,8,0"/>
+                                    <StackPanel Width="370">
+                                        <!--<TextBlock Text="{Binding Title}" MaxHeight="100" Foreground="#FFC8AB14" FontSize="28" TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding Link}" TextWrapping="Wrap" FontSize="24" />-->
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
             </controls:PanoramaItem>
             <controls:PanoramaItem Header="Favorites" Tag="Favorites">

@@ -16,7 +16,7 @@ namespace Geopeana
     public class FavoriteData
     {
         IsolatedStorageSettings storage;
-        private List<EUPItem> data;
+        private List<string> data;
 
         private static readonly int HISTORY_SIZE = 5;
 
@@ -24,39 +24,39 @@ namespace Geopeana
         {
             storage = IsolatedStorageSettings.ApplicationSettings;
 
-            if (storage.Contains("data"))
-                data = (List<EUPItem>)storage["data"];
+            if (storage.Contains("favorites"))
+                data = (List<string>)storage["favorites"];
             else
-                data = new List<EUPItem>();
+                data = new List<string>();
         }
 
-        public void AddToRecent(EUPItem item)
+        public void AddToFavorites(string guid)
         {
             if (data.Count == 1)
             {
-                if (data[0].Title == "No recent entries")
+                if (data[0] == "No recent entries")
                     data.Clear();
             }
 
             if (data.Count < HISTORY_SIZE)
-                data.Add(item);
+                data.Add(guid);
             else
             {
-                data.Insert(0, item);
+                data.Insert(0, guid);
                 data.RemoveAt(data.Count - 1);
             }
         }
 
         public void Save()
         {
-            if (storage.Contains("data"))
-                storage.Remove("data");
+            if (storage.Contains("favorites"))
+                storage.Remove("favorites");
 
-            storage.Add("data", data);
+            storage.Add("favorites", data);
             storage.Save();
         }
 
-        public List<EUPItem> Retrieve()
+        public List<string> Retrieve()
         {
             return data;
         }
@@ -71,17 +71,12 @@ namespace Geopeana
                 if (instance == null)
                 {
                     instance = new FavoriteData();
-                    EUPItem item = new EUPItem();
-                    item.Link = "";
-                    item.Thumbnail = "";
-                    item.Title = "No recent entries";
-                    instance.AddToRecent(item);
+                    instance.AddToFavorites("No recent entries");
                 }
 
                 return instance;
             }
         }
         #endregion
-    }
     }
 }

@@ -82,9 +82,6 @@ namespace Geopeana
             // Navigate to the new page
             NavigationService.Navigate(new Uri("/Details.xaml?selectedItem=" + ((EUPItem)ResultsListBox.SelectedItem).Link, UriKind.Relative));
 
-            // Add to recent entry visits
-            RecentData.Instance.AddToRecent((EUPItem)ResultsListBox.SelectedItem);
-
             // Reset selected index to -1 (no selection)
             ResultsListBox.SelectedIndex = -1;
         }

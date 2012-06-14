@@ -20,8 +20,14 @@ namespace Geopeana
             InitializeComponent();
             browseTextBlock.MouseLeftButtonDown += new MouseButtonEventHandler(browseTextBlock_MouseLeftButtonDown);
             MapTextBlock.MouseLeftButtonDown += new MouseButtonEventHandler(MapTextBlock_MouseLeftButtonDown);
-            RecentListBox.ItemsSource = RecentData.Instance.Retrieve();
-            FavoritesListBox.ItemsSource = FavoriteData.Instance.Retrieve();
+            RecentData.Instance.recentImageFoundEvent += new RecentData.recentImageFound(Instance_recentImageFoundEvent);
+            //RecentListBox.ItemsSource = RecentData.Instance.Retrieve();
+            //FavoritesListBox.ItemsSource = FavoriteData.Instance.Retrieve();
+        }
+
+        void Instance_recentImageFoundEvent(EUPItem item)
+        {
+            RecentListBox.Items.Add(item);
         }
 
         private void browseTextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

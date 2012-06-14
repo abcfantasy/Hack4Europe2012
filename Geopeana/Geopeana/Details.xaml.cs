@@ -19,6 +19,7 @@ namespace Geopeana
     public partial class Details : PhoneApplicationPage
     {
         private string guid;
+
         public Details()
         {
             InitializeComponent();
@@ -33,6 +34,10 @@ namespace Geopeana
             if (NavigationContext.QueryString.TryGetValue("selectedItem", out msg))
             {
                 guid = msg;
+
+                // Add to recent entry visits
+                RecentData.Instance.AddToRecent(guid);
+
                 try
                 {
                     webBrowser1.Navigate(new Uri(msg));
@@ -59,13 +64,7 @@ namespace Geopeana
         // pin it, fav it, share it!
         private void FavIt_Click(object sender, RoutedEventArgs e)
         {
-
+            FavoriteData.Instance.AddToFavorites(guid);
         }
-
-
-
     }
-
-        
-    
 }

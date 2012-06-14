@@ -16,7 +16,9 @@ namespace Geopeana
     public class RecentData
     {
         IsolatedStorageSettings storage;
-        private List<EUPItem> data;
+        private List<string> data;
+        public delegate void recentImageFound(EUPItem item);
+        public event recentImageFound recentImageFoundEvent;
 
         private static readonly int HISTORY_SIZE = 5;
 
@@ -24,41 +26,59 @@ namespace Geopeana
         {
             storage = IsolatedStorageSettings.ApplicationSettings;
 
-            if (storage.Contains("data"))
-                data = (List<EUPItem>)storage["data"];
+            if (storage.Contains("recent"))
+                data = (List<string>)storage["recent"];
             else
-                data = new List<EUPItem>();
+                data = new List<string>();
         }
 
-        public void AddToRecent(EUPItem item)
+        public void AddToRecent(string guid)
         {
             if (data.Count == 1)
             {
-                if (data[0].Title == "No recent entries")
+                if (data[0] == "No recent entries")
                     data.Clear();
             }
 
             if (data.Count < HISTORY_SIZE)
-                data.Add(item);
+                data.Add(guid);
             else
             {
-                data.Insert(0, item);
+                data.Insert(0, guid);
                 data.RemoveAt(data.Count - 1);
             }
         }
 
         public void Save()
         {
-            if (storage.Contains("data"))
-                storage.Remove("data");
+            if (storage.Contains("recent"))
+                storage.Remove("recent");
 
-            storage.Add("data", data);
+            storage.Add("recent", data);
             storage.Save();
         }
 
-        public List<EUPItem> Retrieve()
+        public List<string> Retrieve()
         {
+            GuidHelper guidHelper = new GuidHelper();
+            guidHelper.imageFoundEvent += new GuidHelper.imageFound(guidHelper_imageFoundEvent);
+
+            foreach (var d in data)
+            {
+                guidHelper.getImageInfo(d);
+            }
+
             return data;
+        }
+
+        void guidHelper_imageFoundEvent(string imageUrl, string detailsUrl)
+        {
+            EUPItem item = new EUPItem();
+            item.Thumbnail = imageUrl;
+            item.Link = detailsUrl;
+
+            if (recentImageFoundEvent != null)
+                recentImageFoundEvent(item);
         }
 
         #region Singleton instance
@@ -71,11 +91,7 @@ namespace Geopeana
                 if (instance == null)
                 {
                     instance = new RecentData();
-                    EUPItem item = new EUPItem();
-                    item.Link = "";
-                    item.Thumbnail = "";
-                    item.Title = "No recent entries";
-                    instance.AddToRecent(item);
+                    instance.AddToRecent("No recent entries");
                 }
 
                 return instance;
