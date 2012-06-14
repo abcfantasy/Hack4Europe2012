@@ -21,6 +21,9 @@ namespace Geopeana
 
             fromYearPicker.Visibility = Visibility.Collapsed;
             toYearPicker.Visibility = Visibility.Collapsed;
+            string[] countries = {"USA","INDIA"};
+
+            countryPicker.ItemsSource = countries;
         }
 
         private void fromLimitCheck_Checked(object sender, RoutedEventArgs e)
@@ -42,6 +45,8 @@ namespace Geopeana
         {
             fromYearPicker.Visibility = Visibility.Collapsed;
         }
+
+
 
 
 
