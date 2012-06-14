@@ -72,11 +72,11 @@ namespace Geopeana
             {
                 XElement address= XElement.Parse(e.Result);
 
-
                 IEnumerable<string> adresse = from component in address.Descendants("address_component")
-                       where (string) component.Element("type").Value == "locality"
-                       select (string)component.Element("long_name").Value;
-                City = adresse.First<string>();
+                                              where (string)component.Element("type").Value == "locality"
+                                              select (string)component.Element("long_name").Value;
+                
+                City = adresse.Count<string>() != 0 ? adresse.First<string>() : "";
 
                 if (cityFoundEvent !=null) cityFoundEvent(City);
             }

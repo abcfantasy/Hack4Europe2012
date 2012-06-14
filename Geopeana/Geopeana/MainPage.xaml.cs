@@ -21,6 +21,7 @@ namespace Geopeana
         EUPwebclient EuropeanaAPI;
         GPS phoneGPS;
         googleCityLookup cityFinder;
+
         // Constructor
         public MainPage()
         {
@@ -29,7 +30,7 @@ namespace Geopeana
             // Set the data context of the listbox control to the sample data
             DataContext = App.ViewModel;
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
-            
+
             //Load Europeana API
             EuropeanaAPI = new EUPwebclient();
             EuropeanaAPI.searchDoneEvent += new EUPwebclient.searchDone(EuropeanaAPI_searchDoneEvent);
@@ -40,7 +41,7 @@ namespace Geopeana
 
             //Load city finder
             cityFinder = new googleCityLookup();
-            cityFinder.cityFoundEvent +=new googleCityLookup.cityFound(cityFinder_cityFoundEvent);
+            cityFinder.cityFoundEvent += new googleCityLookup.cityFound(cityFinder_cityFoundEvent);
 
             //Progress bar control
             SystemTray.SetIsVisible(this, true);
@@ -50,8 +51,6 @@ namespace Geopeana
             prog.IsIndeterminate = true;
             prog.Text = "Loading..";
             SystemTray.SetProgressIndicator(this, prog);
-
-
         }
 
         // Handle selection changed on ListBox
@@ -62,7 +61,7 @@ namespace Geopeana
                 return;
 
             // Navigate to the new page
-            NavigationService.Navigate(new Uri("/Details.xaml?selectedItem=" + ((EUPItem) ResultsListBox.SelectedItem).Link, UriKind.Relative));
+            NavigationService.Navigate(new Uri("/Details.xaml?selectedItem=" + ((EUPItem)ResultsListBox.SelectedItem).Link, UriKind.Relative));
 
             // Reset selected index to -1 (no selection)
             ResultsListBox.SelectedIndex = -1;
@@ -76,7 +75,7 @@ namespace Geopeana
                 App.ViewModel.LoadData();
             }
             //phoneGPS.GetPosition();
-            
+
         }
 
         private void phoneGPS_posFoundEvent(double lat, double lon)
@@ -87,21 +86,22 @@ namespace Geopeana
 
         public void cityFinder_cityFoundEvent(string city)
         {
-            CityBox.Text = city;
+            if (city.Length == 0)
+                prog.Text = "Location unavailable";
+            else
+                prog.Text = String.Format("Retrieved current city as '{0}'", city);
         }
-
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-        prog.IsIndeterminate = true;
-        prog.IsVisible = true;
-        EuropeanaAPI.lookup(CityBox.Text);
-        
+            prog.IsIndeterminate = true;
+            prog.IsVisible = true;
+            EuropeanaAPI.lookup(CityBox.Text);
         }
 
         //Show the searchresults in the list
-        void EuropeanaAPI_searchDoneEvent(XElement SearchResults){
-
+        void EuropeanaAPI_searchDoneEvent(XElement SearchResults)
+        {
             if (SearchResults == null)
             {
                 prog.IsIndeterminate = false;
@@ -109,27 +109,27 @@ namespace Geopeana
                 return;
             }
 
-        ResultsListBox.ItemsSource = from item in SearchResults.Element("channel").Descendants("item")
-                                        select new EUPItem
-                                        {
-                                            Thumbnail = item.Element("enclosure") != null ? item.Element("enclosure").Attribute("url").Value : "Koala.jpg",
-                                            Link = item.Element("guid").Value,
-                                            Title = item.Element("title").Value
-                                        };
-        if(ResultsListBox.Items.Count>0)
-            Dispatcher.BeginInvoke(new Action(delegate() {ResultsListBox.ScrollIntoView(ResultsListBox.Items[0]); }));
-        prog.IsIndeterminate = false;
-        prog.IsVisible = false;
+            ResultsListBox.ItemsSource = from item in SearchResults.Element("channel").Descendants("item")
+                                         select new EUPItem
+                                         {
+                                             Thumbnail = item.Element("enclosure") != null ? item.Element("enclosure").Attribute("url").Value : "Koala.jpg",
+                                             Link = item.Element("guid").Value,
+                                             Title = item.Element("title").Value
+                                         };
+
+            if (ResultsListBox.Items.Count > 0)
+            {
+                Dispatcher.BeginInvoke(new Action(delegate() { ResultsListBox.ScrollIntoView(ResultsListBox.Items[0]); }));
+                prog.IsIndeterminate = false;
+                prog.IsVisible = false;
+            }
         }
-     
-       
 
-    }
-
-    public class EUPItem
-    {
-        public string Title { get; set; }
-        public string Link { get; set; }
-        public string Thumbnail { get; set; }
+        public class EUPItem
+        {
+            public string Title { get; set; }
+            public string Link { get; set; }
+            public string Thumbnail { get; set; }
+        }
     }
 }
