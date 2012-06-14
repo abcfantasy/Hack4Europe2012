@@ -102,21 +102,26 @@ namespace Geopeana
         {            
             string guid = (String)((Image)e.OriginalSource).Tag;
 
-            //GuidHelper guidHelper = new GuidHelper();
-            
+            GuidHelper guidHelper = new GuidHelper();
+            guidHelper.imageFoundEvent += new GuidHelper.imageFound(guidHelper_imageFoundEvent);
+            guidHelper.getImageInfo(guid);
+        }
+
+        void guidHelper_imageFoundEvent(string imageUrl, string detailsUrl)
+        {
             if (detailsImage != null)
             {
-                detailsImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("http://mjtrading.dk/files/images/test-pattern-clock_4767.jpg", UriKind.Absolute));
-                detailsImage.Tag = guid;
+                detailsImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(imageUrl, UriKind.Absolute));
+                detailsImage.Tag = detailsUrl;
             }
             else
             {
                 detailsImage = new Image();
-                detailsImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("http://www.youngmoneymagazine.co.uk/wordpress/wp-content/uploads/2011/12/test-image.jpg", UriKind.Absolute));
+                detailsImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(imageUrl, UriKind.Absolute));
                 detailsImage.MaxHeight = 128.0;
                 detailsImage.MaxWidth = 128.0;
                 detailsImage.Stretch = Stretch.UniformToFill;
-                detailsImage.Tag = guid;
+                detailsImage.Tag = detailsUrl;
                 detailsImage.Tap += new EventHandler<GestureEventArgs>(detailsImage_Tap);
                 Canvas.SetLeft(detailsImage, 10.0);
                 Canvas.SetTop(detailsImage, 10.0);
@@ -126,8 +131,8 @@ namespace Geopeana
 
         void detailsImage_Tap(object sender, GestureEventArgs e)
         {
-            string guid = (String)( (Image)e.OriginalSource ).Tag;
-            NavigationService.Navigate(new Uri("/Details.xaml?selectedItem=" + guid, UriKind.Relative));
+            string url = (String)( (Image)e.OriginalSource ).Tag;
+            NavigationService.Navigate(new Uri("/Details.xaml?selectedItem=" + url, UriKind.Relative));
         }
 
         
