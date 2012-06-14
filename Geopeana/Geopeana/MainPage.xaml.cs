@@ -11,11 +11,13 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Xml.Linq;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 
 namespace Geopeana
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        ProgressIndicator prog;
         EUPwebclient EuropeanaAPI;
         GPS phoneGPS;
         googleCityLookup cityFinder;
@@ -39,6 +41,15 @@ namespace Geopeana
             //Load city finder
             cityFinder = new googleCityLookup();
             cityFinder.cityFoundEvent +=new googleCityLookup.cityFound(cityFinder_cityFoundEvent);
+
+            //Progress bar control
+            SystemTray.SetIsVisible(this, true);
+            SystemTray.SetOpacity(this, 0);
+            prog = new ProgressIndicator();
+            prog.IsVisible = true;
+            prog.IsIndeterminate = true;
+            prog.Text = "Loading..";
+            SystemTray.SetProgressIndicator(this, prog);
 
 
         }
@@ -82,6 +93,8 @@ namespace Geopeana
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
+        prog.IsIndeterminate = true;
+        prog.IsVisible = true;
         EuropeanaAPI.lookup(CityBox.Text);
         
         }
@@ -97,9 +110,13 @@ namespace Geopeana
                                             Title = item.Element("title").Value
                                         };
         if(ResultsListBox.Items.Count>0)
-            Dispatcher.BeginInvoke(new Action(delegate() { ResultsListBox.ScrollIntoView(ResultsListBox.Items[0]); }));
+            Dispatcher.BeginInvoke(new Action(delegate() {ResultsListBox.ScrollIntoView(ResultsListBox.Items[0]);}));
+        prog.IsIndeterminate = false;
+        prog.IsVisible = false;
+
         }
-        
+     
+       
 
     }
 
