@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Windows;
+using System.Windows.Threading;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -12,6 +13,7 @@ using System.Windows.Shapes;
 using System.Xml.Linq;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.Windows.Controls.Primitives;
 
 namespace Geopeana
 {
@@ -49,7 +51,7 @@ namespace Geopeana
             prog = new ProgressIndicator();
             prog.IsVisible = true;
             prog.IsIndeterminate = true;
-            prog.Text = "Loading..";
+            prog.Text = "Loading...";
             SystemTray.SetProgressIndicator(this, prog);
 
             this.BackKeyPress += new EventHandler<System.ComponentModel.CancelEventArgs>(MainPage_BackKeyPress);
@@ -96,7 +98,21 @@ namespace Geopeana
 
         public void cityFinder_cityFoundEvent(string city)
         {
+            prog.Text = "Current city: " + city;
+            prog.IsIndeterminate = true;
+            prog.IsVisible = true;
 
+            DispatcherTimer dt = new DispatcherTimer();
+            dt.Interval = new TimeSpan(0, 0, 3); // Display for 3 seconds
+            dt.Tick += new EventHandler(elapsedTimerHandler);
+            dt.Start();
+        }
+
+        private void elapsedTimerHandler(object sender, EventArgs e)
+        {
+            prog.IsIndeterminate = false;
+            prog.IsVisible = false;
+            prog.Text = "Loading...";
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -122,7 +138,7 @@ namespace Geopeana
             ResultsListBox.ItemsSource = from item in SearchResults.Element("channel").Descendants("item")
                                          select new EUPItem
                                          {
-                                             Thumbnail = item.Element("enclosure") != null ? item.Element("enclosure").Attribute("url").Value : "Koala.jpg",
+                                             Thumbnail = item.Element("enclosure") != null ? item.Element("enclosure").Attribute("url").Value : "image_not_available.jpg",
                                              Link = item.Element("guid").Value,
                                              Title = item.Element("title").Value
                                          };

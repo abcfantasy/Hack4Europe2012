@@ -129,6 +129,7 @@
     </Content>
     <Resource Include="flag_bg.jpg" />
     <Resource Include="flag_bg_large.jpg" />
+    <Resource Include="image_not_available.jpg" />
     <Content Include="Koala.jpg" />
     <Content Include="SplashScreenImage.jpg" />
     <Resource Include="marker-red.png" />

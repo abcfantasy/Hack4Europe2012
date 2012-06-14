@@ -22,7 +22,6 @@ namespace Geopeana
             MapTextBlock.MouseLeftButtonDown += new MouseButtonEventHandler(MapTextBlock_MouseLeftButtonDown);
         }
 
-
         private void browseTextBlock_MouseLeftButtonDown(object sender,MouseButtonEventArgs e)
         {
             NavigationService.Navigate(new Uri("/BrowserPage.xaml", UriKind.Relative));
@@ -32,6 +31,5 @@ namespace Geopeana
         {
             NavigationService.Navigate(new Uri("/LocalizedMapPage.xaml", UriKind.Relative));
         }
-
     }
 }
