@@ -13,21 +13,25 @@ using Microsoft.Phone.Controls;
 
 namespace Geopeana
 {
-    public partial class MenuPage : PhoneApplicationPage
+    public partial class PanoramaPage1 : PhoneApplicationPage
     {
-        public MenuPage()
+        public PanoramaPage1()
         {
             InitializeComponent();
+            browseTextBlock.MouseLeftButtonDown += new MouseButtonEventHandler(browseTextBlock_MouseLeftButtonDown);
+            MapTextBlock.MouseLeftButtonDown += new MouseButtonEventHandler(MapTextBlock_MouseLeftButtonDown);
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+
+        private void browseTextBlock_MouseLeftButtonDown(object sender,MouseButtonEventArgs e)
         {
             NavigationService.Navigate(new Uri("/BrowserPage.xaml", UriKind.Relative));
         }
 
-        private void button2_Click(object sender, RoutedEventArgs e)
+        private void MapTextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             NavigationService.Navigate(new Uri("/LocalizedMapPage.xaml", UriKind.Relative));
         }
+
     }
 }
