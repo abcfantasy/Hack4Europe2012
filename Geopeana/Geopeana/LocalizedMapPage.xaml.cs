@@ -119,12 +119,12 @@ namespace Geopeana
             guidHelper.getImageInfo(guid);
         }
 
-        void guidHelper_imageFoundEvent(string imageUrl, string detailsUrl)
+        void guidHelper_imageFoundEvent(string imageUrl, string guid)
         {
             if (detailsImage != null)
             {
                 detailsImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(imageUrl, UriKind.Absolute));
-                detailsImage.Tag = detailsUrl;
+                detailsImage.Tag = guid;
             }
             else
             {
@@ -133,7 +133,7 @@ namespace Geopeana
                 detailsImage.MaxHeight = 128.0;
                 detailsImage.MaxWidth = 128.0;
                 detailsImage.Stretch = Stretch.UniformToFill;
-                detailsImage.Tag = detailsUrl;
+                detailsImage.Tag = guid;
                 detailsImage.Tap += new EventHandler<System.Windows.Input.GestureEventArgs>(detailsImage_Tap);
                 Canvas.SetLeft(detailsImage, 10.0);
                 Canvas.SetTop(detailsImage, 10.0);

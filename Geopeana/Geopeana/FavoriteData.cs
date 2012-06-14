@@ -49,6 +49,7 @@ namespace Geopeana
                 data.Insert(0, guid);
                 data.RemoveAt(data.Count - 1);
             }
+            Save();
         }
 
         public bool Contains(string value)
@@ -78,11 +79,11 @@ namespace Geopeana
             //return data;
         }
 
-        void guidHelper_imageFoundEvent(string imageUrl, string detailsUrl)
+        void guidHelper_imageFoundEvent(string imageUrl, string guid)
         {
             EUPItem item = new EUPItem();
             item.Thumbnail = imageUrl;
-            item.Link = detailsUrl;
+            item.Link = guid;
 
             if (favoriteImageFoundEvent != null)
                 favoriteImageFoundEvent(item);

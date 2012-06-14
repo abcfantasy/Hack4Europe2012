@@ -20,7 +20,7 @@ namespace Geopeana
         private static readonly XNamespace enrichment = "http://www.europeana.eu/schemas/ese/enrichment/";
         private static readonly XNamespace dcterms = "http://purl.org/dc/terms/";
 
-        public delegate void imageFound(string imageUrl, string detailsUrl);
+        public delegate void imageFound(string imageUrl, string guid);
         public event imageFound imageFoundEvent;
 
         public const string APIkey = "ZICPOGYUWT";
@@ -30,8 +30,7 @@ namespace Geopeana
             WebClient Europeana = new WebClient();
 
             Europeana.DownloadStringCompleted += new DownloadStringCompletedEventHandler(Europeana_DownloadStringCompleted);
-            string test = xmlUrl(guid);
-            Europeana.DownloadStringAsync(new Uri(xmlUrl(guid)));
+            Europeana.DownloadStringAsync((new Uri(xmlUrl(guid))), guid);
         }
 
         void Europeana_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
@@ -40,8 +39,8 @@ namespace Geopeana
                 return;
             XElement xmlItems = XElement.Parse(e.Result);
             string imageUrl = xmlItems.Element(srw + "records").Element(srw + "record").Element(srw + "recordData").Element(dc + "dc").Element(europeana + "object") != null ? xmlItems.Element(srw + "records").Element(srw + "record").Element(srw + "recordData").Element(dc + "dc").Element(europeana + "object").Value : "";
-            string europeanaLink = xmlItems.Element(srw + "records").Element(srw + "record").Element(srw + "recordData").Element(dc + "dc").Element(europeana + "object") != null ? xmlItems.Element(srw + "records").Element(srw + "record").Element(srw + "recordData").Element(dc + "dc").Element(europeana + "uri").Value : "";
-            if (imageFoundEvent != null) imageFoundEvent(imageUrl, europeanaLink);
+            //string europeanaLink = xmlItems.Element(srw + "records").Element(srw + "record").Element(srw + "recordData").Element(dc + "dc").Element(europeana + "object") != null ? xmlItems.Element(srw + "records").Element(srw + "record").Element(srw + "recordData").Element(dc + "dc").Element(europeana + "uri").Value : "";
+            if (imageFoundEvent != null) imageFoundEvent(imageUrl, (string)e.UserState);
         }
 
         string xmlUrl(string guid)
