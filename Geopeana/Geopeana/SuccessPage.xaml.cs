@@ -27,14 +27,14 @@ namespace Geopeana
 
             Dispatcher.BeginInvoke(() =>
             {
-                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri("/PanoramaMenuPage.xaml", UriKind.Relative));
             });
         }
 
 
         private void buttonSearch_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/BrowserPage.xaml", UriKind.Relative));
         }
 
         private void buttonMap_Click(object sender, RoutedEventArgs e)
