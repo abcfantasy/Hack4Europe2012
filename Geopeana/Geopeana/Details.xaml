@@ -22,18 +22,14 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="GEOPEANA" Style="{StaticResource PhoneTextNormalStyle}"/>
             <TextBlock x:Name="PageTitle" Text="" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" TextWrapping="Wrap" FontSize="32" />
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,63">
-            <Image Height="409" HorizontalAlignment="Left" Name="imageDetails" Stretch="Fill" VerticalAlignment="Top" Width="450" />
-            <TextBlock Height="Auto" HorizontalAlignment="Left" Margin="0,415,0,0" Name="textBlockDetails" Text="TextBlock" VerticalAlignment="Top" Width="Auto" TextWrapping="Wrap" />
-            <Image Height="403" HorizontalAlignment="Left" Margin="6,6,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="444" />
-            <HyperlinkButton Content="HyperlinkButton" Height="Auto" HorizontalAlignment="Left" Margin="6,448,0,0" Name="hyperlinkButton1" VerticalAlignment="Top" Width="Auto" Click="hyperlinkButton1_Click" />
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,78">
+            <phone:WebBrowser HorizontalAlignment="Left" Margin="0,-45,0,0" Name="webBrowser1" VerticalAlignment="Top" Height="690" Width="468" />
         </Grid>
-        <Button Content="Pin it!" Grid.Row="1" Height="72" HorizontalAlignment="Left" Margin="0,588,0,0" Name="button1" VerticalAlignment="Top" Width="480" Click="button1_Click" />
+        <Button Content="Pin it!" Grid.Row="1" Height="72" HorizontalAlignment="Left" Margin="0,651,0,0" Name="PinIt" VerticalAlignment="Top" Width="480" Click="PinIt_Click" />
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->

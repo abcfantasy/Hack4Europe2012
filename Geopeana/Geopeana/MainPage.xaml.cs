@@ -51,7 +51,7 @@ namespace Geopeana
                 return;
 
             // Navigate to the new page
-            NavigationService.Navigate(new Uri("/DetailsPage.xaml?selectedItem=" + ResultsListBox.SelectedIndex, UriKind.Relative));
+            NavigationService.Navigate(new Uri("/Details.xaml?selectedItem=" + ((EUPItem) ResultsListBox.SelectedItem).Link, UriKind.Relative));
 
             // Reset selected index to -1 (no selection)
             ResultsListBox.SelectedIndex = -1;
@@ -93,7 +93,7 @@ namespace Geopeana
                                         select new EUPItem
                                         {
                                             Thumbnail = item.Element("enclosure") != null ? item.Element("enclosure").Attribute("url").Value : "Koala.jpg",
-                                            Link = item.Element("link").Value,
+                                            Link = item.Element("guid").Value,
                                             Title = item.Element("title").Value
                                         };
 
