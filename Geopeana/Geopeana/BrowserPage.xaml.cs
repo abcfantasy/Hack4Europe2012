@@ -23,6 +23,7 @@ namespace Geopeana
         EUPwebclient EuropeanaAPI;
         GPS phoneGPS;
         googleCityLookup cityFinder;
+        ScrollViewer scrollViewer;
 
         // Constructor
         public MainPage()
@@ -148,6 +149,10 @@ namespace Geopeana
                 Dispatcher.BeginInvoke(new Action(delegate() { ResultsListBox.ScrollIntoView(ResultsListBox.Items[0]); }));
                 prog.IsIndeterminate = false;
                 prog.IsVisible = false;
+
+                // get scroll view
+                scrollViewer = ResultsListBox.GetScrollViewer();
+                scrollViewer.ManipulationCompleted += new EventHandler<ManipulationCompletedEventArgs>(ResultsListBox_ManipulationCompleted);
             }
         }
 
@@ -161,6 +166,15 @@ namespace Geopeana
         private void ApplicationBarIconButton_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/AdvancedSearch.xaml", UriKind.Relative));
+        }
+
+        private void ResultsListBox_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
+        {
+            //if (e.ManipulationOrigin.Y + (-e.TotalManipulation.Translation.Y) >=
+            if (scrollViewer.VerticalOffset > scrollViewer.ScrollableHeight - 0.01f )
+            {
+                
+            }
         }
     }
 }
