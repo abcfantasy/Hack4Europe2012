@@ -26,8 +26,8 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <TextBlock Height="346" HorizontalAlignment="Left" Margin="61,77,0,0" Name="textBlock1" Text="SUCCESS! &#13; You have pined this entry to your current location." VerticalAlignment="Top" Width="348" FontSize="48" TextAlignment="Center" TextWrapping="Wrap" />
-            <Button Content="Button" Height="80" HorizontalAlignment="Left" Margin="61,456,0,0" Name="button1" VerticalAlignment="Top" Width="348" />
-            <Button Content="Button" Height="80" HorizontalAlignment="Left" Margin="61,572,0,0" Name="button2" VerticalAlignment="Top" Width="348" />
+            <Button Content="New search" Height="80" HorizontalAlignment="Left" Margin="61,456,0,0" Name="buttonSearch" VerticalAlignment="Top" Width="348" Click="buttonSearch_Click" />
+            <Button Content="Map" Height="80" HorizontalAlignment="Left" Margin="61,572,0,0" Name="buttonMap" VerticalAlignment="Top" Width="348" Click="buttonMap_Click" />
         </Grid>
     </Grid>
  

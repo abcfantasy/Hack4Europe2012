@@ -18,10 +18,7 @@ namespace Geopeana
 {
     public partial class Details : PhoneApplicationPage
     {
-        
-
-        public string guid;
-        
+        private string guid;
         public Details()
         {
             InitializeComponent();
@@ -35,7 +32,7 @@ namespace Geopeana
             
             if (NavigationContext.QueryString.TryGetValue("selectedItem", out msg))
             {
-                //guid = msg;
+                guid = msg;
                 try
                 {
                     webBrowser1.Navigate(new Uri(msg));
@@ -51,15 +48,14 @@ namespace Geopeana
         {
             GPS gps = new GPS();
             gps.posFoundEvent += new GPS.posFound(gps_posFoundEvent);
-
+            NavigationService.Navigate(new Uri("/SuccessPage.xaml", UriKind.Relative));
         }
 
         void gps_posFoundEvent(double lat, double lon)
         {
             LocationData.Instance[guid] = new SimpleCoordinates(lon, lat);          
         }
-
-        
+             
 
        
         }

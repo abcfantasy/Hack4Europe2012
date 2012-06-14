@@ -19,5 +19,20 @@ namespace Geopeana
         {
             InitializeComponent();
         }
+
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            //base.OnBackKeyPress(e);
+        }
+
+        private void buttonSearch_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+        }
+
+        private void buttonMap_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/LocalizedMapPage.xaml", UriKind.Relative));
+        }
     }
 }
