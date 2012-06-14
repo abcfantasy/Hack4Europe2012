@@ -11,23 +11,28 @@ using System.Windows.Shapes;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.IsolatedStorage;
+using System.Collections;
 
 namespace Geopeana
 {
     /// <summary>
     /// Usage
-    /// Create new instance of class.
-    /// To add elements: Data[key] = new SimpleCoordinates(long, lat);
-    /// To get element: Location = Data[key];
+    /// Do not create new instance. Get singleton instance using Data.Instance
+    /// To add elements: LocationData.Instance[key] = new SimpleCoordinates(city, long, lat);
+    /// To get element: Location = LocationData.Instance[key];
     /// </summary>
     public class LocationData
     {
         IsolatedStorageSettings storage;
+        private Dictionary<string, SimpleCoordinates> data;
 
         // get virtual space for application
-        public LocationData()
+        private LocationData()
         {
-            storage = IsolatedStorageSettings.ApplicationSettings;
+            storage = IsolatedStorageSettings.ApplicationSettings;   
+            
+            if ( storage.Contains("data") )
+                data = (Dictionary<string, SimpleCoordinates>)storage["data"];
         }
 
         // indexer to get or add entries
@@ -35,13 +40,45 @@ namespace Geopeana
         {
             get
             {
-                return (SimpleCoordinates)storage[guid];
+                return data[guid];
             }
             set
             {
-                storage.Add(guid, value);
-                storage.Save();
+                data.Add(guid, value);
+                Save();
             }
         }
+
+        public Dictionary<string, SimpleCoordinates>.Enumerator GetEnumerator()
+        {
+            return data.GetEnumerator();
+        }
+
+        public void Save()
+        {
+            if (storage.Contains("data"))
+                storage.Remove("data");
+
+            storage.Add("data", data);
+
+            storage.Save();
+        }
+
+        #region Singleton Instance
+        private static LocationData instance;
+
+        public static LocationData Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new LocationData();
+                    instance.data = new Dictionary<string, SimpleCoordinates>();
+                }
+                return instance;
+            }
+        }
+        #endregion
     }
 }
