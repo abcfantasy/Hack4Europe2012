@@ -90,6 +90,7 @@
       <DependentUpon>PanoramaMenuPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecentData.cs" />
     <Compile Include="SimpleCoordinates.cs" />
     <Compile Include="SuccessPage.xaml.cs">
       <DependentUpon>SuccessPage.xaml</DependentUpon>
