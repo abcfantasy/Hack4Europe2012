@@ -31,5 +31,15 @@ namespace Geopeana
         {
             NavigationService.Navigate(new Uri("/LocalizedMapPage.xaml", UriKind.Relative));
         }
+
+
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService != null)
+                while (NavigationService.CanGoBack)
+                    NavigationService.RemoveBackEntry();
+        }
+
+
     }
 }
