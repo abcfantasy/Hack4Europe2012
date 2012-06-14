@@ -51,6 +51,18 @@ namespace Geopeana
             prog.IsIndeterminate = true;
             prog.Text = "Loading..";
             SystemTray.SetProgressIndicator(this, prog);
+
+            this.BackKeyPress += new EventHandler<System.ComponentModel.CancelEventArgs>(MainPage_BackKeyPress);
+        }
+
+        void MainPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+
+            Dispatcher.BeginInvoke(() =>
+            {
+                NavigationService.Navigate(new Uri("/MenuPage.xaml", UriKind.Relative));
+            });
         }
 
         // Handle selection changed on ListBox

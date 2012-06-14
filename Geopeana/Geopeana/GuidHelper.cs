@@ -30,6 +30,7 @@ namespace Geopeana
             WebClient Europeana = new WebClient();
 
             Europeana.DownloadStringCompleted += new DownloadStringCompletedEventHandler(Europeana_DownloadStringCompleted);
+            string test = xmlUrl(guid);
             Europeana.DownloadStringAsync(new Uri(xmlUrl(guid)));
         }
 
@@ -49,8 +50,8 @@ namespace Geopeana
             string[] part = guid.Split(delimiterChars);
             string url = "";
             for (int i = 0; i < part.Length - 1; i++)
-                url += part[i];
-            return url + ".srw?wskey=" + APIkey;
+                url += part[i] + ".";
+            return url + "srw?wskey=" + APIkey;
         }
     }
 }

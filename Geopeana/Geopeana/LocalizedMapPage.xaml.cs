@@ -36,6 +36,18 @@ namespace Geopeana
             GPS gps = new GPS();
             gps.posFoundEvent += new GPS.posFound(gps_posFoundEvent);
             gps.GetPosition();
+
+            this.BackKeyPress += new EventHandler<System.ComponentModel.CancelEventArgs>(MainPage_BackKeyPress);
+        }
+
+        void MainPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+
+            Dispatcher.BeginInvoke(() =>
+            {
+                NavigationService.Navigate(new Uri("/MenuPage.xaml", UriKind.Relative));
+            });
         }
 
         void gps_posFoundEvent(double lat, double lon)
