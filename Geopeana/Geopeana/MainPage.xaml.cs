@@ -86,8 +86,6 @@ namespace Geopeana
             {
                 App.ViewModel.LoadData();
             }
-            //phoneGPS.GetPosition();
-
         }
 
         private void phoneGPS_posFoundEvent(double lat, double lon)
@@ -98,17 +96,20 @@ namespace Geopeana
 
         public void cityFinder_cityFoundEvent(string city)
         {
-            if (city.Length == 0)
-                prog.Text = "Location unavailable";
+            if (city.Length > 0)
+                MessageBox.Show("Current city " + city, "Success!", MessageBoxButton.OK);
             else
-                prog.Text = String.Format("Retrieved current city as '{0}'", city);
+                MessageBox.Show("Current city unavailable", "Failure", MessageBoxButton.OK);
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            prog.IsIndeterminate = true;
-            prog.IsVisible = true;
-            EuropeanaAPI.lookup(CityBox.Text);
+            if (CityBox.Text.Length > 0)
+            {
+                prog.IsIndeterminate = true;
+                prog.IsVisible = true;
+                EuropeanaAPI.lookup(CityBox.Text);
+            }
         }
 
         //Show the searchresults in the list

@@ -16,7 +16,6 @@ namespace Geopeana
 {
     public class googleCityLookup
     {
-        
             #region Member variables
             private static string googleapi_baserequest = "http://maps.google.com/maps/geo?q={0},{1}&output=csv&sensor=false";
             private static string googleapi_secure_xmlrequest = "https://maps.googleapis.com/maps/api/geocode/xml?latlng={0},{1}&sensor=false";
@@ -35,22 +34,9 @@ namespace Geopeana
 
             #region Client API
 
-            /// <example>
-            /// An example that shows how to use the API
-            /// <code>
-            /// PositionToLocationClient plc = new PositionToLocationClient();
-            /// plc.SendRequest(55.680694, 12.58809);
-            /// Console.WriteLine(String.Format("{0}, {1}, {2}", plc.Street, plc.City, plc.Country));
-            /// // Result: Nyhavn 1F, København, Danmark
-            /// </code>
-            /// </example>
-            ///
- 
-
             public googleCityLookup()
             {            
             }
-
 
             public googleCityLookup(double latitude, double longitude)
             {
@@ -61,7 +47,7 @@ namespace Geopeana
             {
                 WebClient wc = new WebClient();
 
-                wc.DownloadStringAsync(new Uri(String.Format(googleapi_secure_xmlrequest, latitude.ToString(), longitude.ToString())));
+                wc.DownloadStringAsync(new Uri(String.Format(googleapi_secure_xmlrequest, latitude.ToString().Replace(",", "."), longitude.ToString().Replace(",", "."))));
                 wc.DownloadStringCompleted += new DownloadStringCompletedEventHandler(DownloadStringCompletedHandler);
             }
 
@@ -76,9 +62,9 @@ namespace Geopeana
                                               where (string)component.Element("type").Value == "locality"
                                               select (string)component.Element("long_name").Value;
                 
-                City = adresse.Count<string>() != 0 ? adresse.First<string>() : "";
+                City = adresse.Count<string>() > 0 ? adresse.First<string>() : "";
 
-                if (cityFoundEvent !=null) cityFoundEvent(City);
+                if (cityFoundEvent != null) cityFoundEvent(City);
             }
             #endregion
         }
