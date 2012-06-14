@@ -32,10 +32,10 @@ namespace Geopeana
         public void lookup(double lat, double lon)
         {
             // Lower- and upper bounds for latitude and longitude
-            string lb_lat = (lat - 0.1).ToString().Replace(",", ".");
-            string ub_lat = (lat + 0.1).ToString().Replace(",", ".");
-            string lb_lon = (lon - 0.1).ToString().Replace(",", ".");
-            string ub_lon = (lon + 0.1).ToString().Replace(",", ".");
+            string lb_lat = (lat - 0.01).ToString().Replace(",", ".");
+            string ub_lat = (lat + 0.01).ToString().Replace(",", ".");
+            string lb_lon = (lon - 0.01).ToString().Replace(",", ".");
+            string ub_lon = (lon + 0.01).ToString().Replace(",", ".");
             string query = "http://api.europeana.eu/api/opensearch.rss?searchTerms=enrichment_place_latitude%3A[" + lb_lat + "+TO+" + ub_lat + "]+AND+enrichment_place_longitude%3A[" + lb_lon + "+TO+" + ub_lon + "]+AND+europeana_type:*IMAGE*&wskey=" + Europeana_API_key;
 
             WebClient EuropeanaClient = new WebClient();

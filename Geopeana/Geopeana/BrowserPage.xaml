@@ -42,8 +42,8 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
-        <Button Content="Search" Height="72" HorizontalAlignment="Left" Margin="308,12,0,0" Name="SearchButton" VerticalAlignment="Top" Width="160" Click="SearchButton_Click" />
-        <TextBox Height="72" HorizontalAlignment="Left" Margin="12,12,0,0" Name="CityBox" Text="" VerticalAlignment="Top" Width="302" />
+        <Button Content="Search" Height="72" HorizontalAlignment="Left" Margin="308,19,0,0" Name="SearchButton" VerticalAlignment="Top" Width="160" Click="SearchButton_Click" />
+        <TextBox Height="72" HorizontalAlignment="Left" Margin="12,19,0,0" Name="CityBox" Text="" VerticalAlignment="Top" Width="302" />
     </Grid>
 
     <!--Sample code showing usage of ApplicationBar-->
