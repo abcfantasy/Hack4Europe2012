@@ -46,7 +46,7 @@ namespace Geopeana
 
             Dispatcher.BeginInvoke(() =>
             {
-                NavigationService.Navigate(new Uri("/MenuPage.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri("/PanoramaMenuPage.xaml", UriKind.Relative));
             });
         }
 

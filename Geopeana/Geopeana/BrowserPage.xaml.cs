@@ -61,7 +61,7 @@ namespace Geopeana
 
             Dispatcher.BeginInvoke(() =>
             {
-                NavigationService.Navigate(new Uri("/MenuPage.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri("/PanoramaMenuPage.xaml", UriKind.Relative));
             });
         }
 
@@ -96,10 +96,7 @@ namespace Geopeana
 
         public void cityFinder_cityFoundEvent(string city)
         {
-            if (city.Length > 0)
-                MessageBox.Show("Current city " + city, "Success!", MessageBoxButton.OK);
-            else
-                MessageBox.Show("Current city unavailable", "Failure", MessageBoxButton.OK);
+
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
