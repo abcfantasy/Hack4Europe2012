@@ -170,11 +170,12 @@ namespace Geopeana
 
         private void ResultsListBox_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
         {
-            //if (e.ManipulationOrigin.Y + (-e.TotalManipulation.Translation.Y) >=
-            if (scrollViewer.VerticalOffset > scrollViewer.ScrollableHeight - 0.01f )
-            {
-                
-            }
+            ResultsListBox.EnsureBoundToScrollViewer();
+        }
+
+        private void ResultsListBox_ApproachingEndOfListEvent()
+        {
+            // increment page here, search and retrieve more results
         }
     }
 }
