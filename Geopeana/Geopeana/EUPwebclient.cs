@@ -20,11 +20,16 @@ namespace Geopeana
 
         public void lookup(string city)
         {
-
             WebClient EuropeanaClient = new WebClient();
-
             EuropeanaClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(EUP_DownloadStringCompleted);
-            EuropeanaClient.DownloadStringAsync(new Uri("http://api.europeana.eu/api/opensearch.rss?searchTerms=" + city + "&type:IMAGE&wskey=ZICPOGYUWT"));
+            EuropeanaClient.DownloadStringAsync(new Uri("http://api.europeana.eu/api/opensearch.rss?searchTerms=" + city + "+AND+europeana_type:*IMAGE*&wskey=ZICPOGYUWT"));
+        }
+
+        public void lookup(double lat, double lon)
+        {
+            WebClient EuropeanaClient = new WebClient();
+            EuropeanaClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(EUP_DownloadStringCompleted);
+            EuropeanaClient.DownloadStringAsync(new Uri("http://api.europeana.eu/api/opensearch.rss?searchTerms=enrichment_place_latitude%3A[" + (lat - 0.1).ToString() + "+TO+" + (lat + 0.1).ToString() + "]+AND+enrichment_place_longitude%3A[" + (lon - 0.1).ToString() + "+TO+" + (lon + 0.1).ToString() + "]+AND+europeana_type:*IMAGE*&wskey=ZICPOGYUWT"));
         }
 
         void EUP_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)

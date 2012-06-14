@@ -16,6 +16,9 @@ namespace Geopeana
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        EUPwebclient EuropeanaAPI;
+        GPS phoneGPS;
+        googleCityLookup cityFinder;
         // Constructor
         public MainPage()
         {
@@ -24,6 +27,20 @@ namespace Geopeana
             // Set the data context of the listbox control to the sample data
             DataContext = App.ViewModel;
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
+            
+            //Load Europeana API
+            EuropeanaAPI = new EUPwebclient();
+            EuropeanaAPI.searchDoneEvent += new EUPwebclient.searchDone(EuropeanaAPI_searchDoneEvent);
+
+            //Load GPS
+            phoneGPS = new GPS();
+            phoneGPS.posFoundEvent += new GPS.posFound(phoneGPS_posFoundEvent);
+
+            //Load city finder
+            cityFinder = new googleCityLookup();
+            cityFinder.cityFoundEvent +=new googleCityLookup.cityFound(cityFinder_cityFoundEvent);
+
+
         }
 
         // Handle selection changed on ListBox
@@ -47,20 +64,35 @@ namespace Geopeana
             {
                 App.ViewModel.LoadData();
             }
+            //phoneGPS.GetPosition();
+            
         }
+
+        private void phoneGPS_posFoundEvent(double lat, double lon)
+        {
+            cityFinder.SendRequest(lat, lon);
+            EuropeanaAPI.lookup(lat, lon);
+        }
+
+        public void cityFinder_cityFoundEvent(string city)
+        {
+            CityBox.Text = city;
+        }
+
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-        EUPwebclient EuropeanaAPI =new EUPwebclient();
-        EuropeanaAPI.searchDoneEvent+= new EUPwebclient.searchDone(EuropeanaAPI_searchDoneEvent);
+        
         EuropeanaAPI.lookup(CityBox.Text);
         }
+
+        //Show the searchresults in the list
         void EuropeanaAPI_searchDoneEvent(XElement SearchResults){
 
         ResultsListBox.ItemsSource = from item in SearchResults.Element("channel").Descendants("item")
                                         select new EUPItem
                                         {
-                                            Thumbnail = item.Element("enclosure") != null ? item.Element("enclosure").Attribute("url").Value : "",
+                                            Thumbnail = item.Element("enclosure") != null ? item.Element("enclosure").Attribute("url").Value : "Koala.jpg",
                                             Link = item.Element("link").Value,
                                             Title = item.Element("title").Value
                                         };

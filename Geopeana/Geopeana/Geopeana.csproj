@@ -70,6 +70,8 @@
     <Compile Include="LocalizedMapPage.xaml.cs">
       <DependentUpon>LocalizedMapPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="googleCityLookup.cs" />
+    <Compile Include="GPS.cs" />
     <Compile Include="LocationData.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -104,6 +106,7 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Koala.jpg" />
     <Content Include="SplashScreenImage.jpg" />
     <Resource Include="marker-red.png" />
   </ItemGroup>
