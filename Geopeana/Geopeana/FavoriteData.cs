@@ -13,14 +13,14 @@ using System.Collections.Generic;
 
 namespace Geopeana
 {
-    public class RecentData
+    public class FavoriteData
     {
         IsolatedStorageSettings storage;
         private List<EUPItem> data;
 
         private static readonly int HISTORY_SIZE = 5;
 
-        private RecentData()
+        private FavoriteData()
         {
             storage = IsolatedStorageSettings.ApplicationSettings;
 
@@ -62,15 +62,15 @@ namespace Geopeana
         }
 
         #region Singleton instance
-        private static RecentData instance;
+        private static FavoriteData instance;
 
-        public static RecentData Instance
+        public static FavoriteData Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new RecentData();
+                    instance = new FavoriteData();
                     EUPItem item = new EUPItem();
                     item.Link = "";
                     item.Thumbnail = "";
@@ -82,5 +82,6 @@ namespace Geopeana
             }
         }
         #endregion
+    }
     }
 }

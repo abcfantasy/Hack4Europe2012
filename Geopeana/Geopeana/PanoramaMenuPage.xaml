@@ -27,7 +27,7 @@
             <!--Panorama item two-->
             <controls:PanoramaItem Header="Recent" Tag="Recent">
                 <Grid>
-                    <ListBox Height="498" HorizontalAlignment="Left" Margin="2,0,0,0" Name="RecentListBox" VerticalAlignment="Top" Width="420" />
+                    <ListBox Height="498" HorizontalAlignment="Left" Margin="2,0,0,0" Name="RecentListBox" SelectionChanged="RecentSelectionChangedHandler" VerticalAlignment="Top" Width="420" />
                 </Grid>
             </controls:PanoramaItem>
             <controls:PanoramaItem Header="Favorites" Tag="Favorites">

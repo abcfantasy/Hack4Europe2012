@@ -20,9 +20,11 @@ namespace Geopeana
             InitializeComponent();
             browseTextBlock.MouseLeftButtonDown += new MouseButtonEventHandler(browseTextBlock_MouseLeftButtonDown);
             MapTextBlock.MouseLeftButtonDown += new MouseButtonEventHandler(MapTextBlock_MouseLeftButtonDown);
+            RecentListBox.ItemsSource = RecentData.Instance.Retrieve();
+            FavoritesListBox.ItemsSource = FavoriteData.Instance.Retrieve();
         }
 
-        private void browseTextBlock_MouseLeftButtonDown(object sender,MouseButtonEventArgs e)
+        private void browseTextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             NavigationService.Navigate(new Uri("/BrowserPage.xaml", UriKind.Relative));
         }
@@ -37,6 +39,18 @@ namespace Geopeana
             if (NavigationService != null)
                 while (NavigationService.CanGoBack)
                     NavigationService.RemoveBackEntry();
+        }
+
+        private void RecentSelectionChangedHandler(object sender, SelectionChangedEventArgs e)
+        {
+            if (RecentListBox.SelectedIndex == -1)
+                return;
+
+            // Navigate to the entry's page
+            NavigationService.Navigate(new Uri("/Details.xaml?selectedItem=" + ((EUPItem)RecentListBox.SelectedItem).Link, UriKind.Relative));
+
+            // Reset selected index to -1 (no selection)
+            RecentListBox.SelectedIndex = -1;
         }
     }
 }

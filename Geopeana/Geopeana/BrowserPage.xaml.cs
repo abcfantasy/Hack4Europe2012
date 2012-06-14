@@ -82,6 +82,9 @@ namespace Geopeana
             // Navigate to the new page
             NavigationService.Navigate(new Uri("/Details.xaml?selectedItem=" + ((EUPItem)ResultsListBox.SelectedItem).Link, UriKind.Relative));
 
+            // Add to recent entry visits
+            RecentData.Instance.AddToRecent((EUPItem)ResultsListBox.SelectedItem);
+
             // Reset selected index to -1 (no selection)
             ResultsListBox.SelectedIndex = -1;
         }
@@ -183,13 +186,6 @@ namespace Geopeana
                 scrollViewer = ResultsListBox.GetScrollViewer();
                 scrollViewer.ManipulationCompleted += new EventHandler<ManipulationCompletedEventArgs>(ResultsListBox_ManipulationCompleted);
             }
-        }
-
-        public class EUPItem
-        {
-            public string Title { get; set; }
-            public string Link { get; set; }
-            public string Thumbnail { get; set; }
         }
 
         private void ApplicationBarIconButton_Click(object sender, EventArgs e)

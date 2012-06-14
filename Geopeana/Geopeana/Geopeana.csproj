@@ -69,7 +69,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="DynamicListBox.cs" />
+    <Compile Include="EUPItem.cs" />
     <Compile Include="EUPwebclient.cs" />
+    <Compile Include="FavoriteData.cs" />
     <Compile Include="GuidHelper.cs" />
     <Compile Include="LocalizedMapPage.xaml.cs">
       <DependentUpon>LocalizedMapPage.xaml</DependentUpon>
