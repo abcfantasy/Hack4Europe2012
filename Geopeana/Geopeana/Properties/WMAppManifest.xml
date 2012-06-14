@@ -20,7 +20,11 @@
       <Capability Name="ID_CAP_APPOINTMENTS"/>
     </Capabilities>
     <Tasks>
+<<<<<<< HEAD
       <DefaultTask  Name ="_default" NavigationPage="MainPage.xaml"/>
+=======
+      <DefaultTask  Name ="_default" NavigationPage="MenuPage.xaml"/>
+>>>>>>> Menu page
     </Tasks>
     <Tokens>
       <PrimaryToken TokenID="GeopeanaToken" TaskName="_default">
