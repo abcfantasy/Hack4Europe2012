@@ -18,12 +18,19 @@ namespace Geopeana
         public SuccessPage()
         {
             InitializeComponent();
+            this.BackKeyPress += new EventHandler<System.ComponentModel.CancelEventArgs>(MainPage_BackKeyPress);
         }
 
-        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        void MainPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //base.OnBackKeyPress(e);
+            e.Cancel = true;
+
+            Dispatcher.BeginInvoke(() =>
+            {
+                NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+            });
         }
+
 
         private void buttonSearch_Click(object sender, RoutedEventArgs e)
         {
