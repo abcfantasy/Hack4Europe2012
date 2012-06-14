@@ -13,13 +13,13 @@ namespace Geopeana
 {
     public struct SimpleCoordinates
     {
-        public string City;
+        //public string City;
         public double Longitude;
         public double Latitude;
 
-        public SimpleCoordinates(string city, double longitude, double latitude)
+        public SimpleCoordinates(/*string city,*/ double longitude, double latitude)
         {
-            City = city;
+            //City = city;
             Longitude = longitude;
             Latitude = latitude;
         }

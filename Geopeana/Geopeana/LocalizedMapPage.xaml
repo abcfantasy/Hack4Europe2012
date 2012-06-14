@@ -26,7 +26,7 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <my:Map Height="684" HorizontalAlignment="Center" Margin="0,6,6,6" Name="map1" Width="450" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" VerticalAlignment="Center">
+            <my:Map Height="684" HorizontalAlignment="Center" Margin="0,0,0,0" Name="map1" Width="450" VerticalContentAlignment="Center" HorizontalContentAlignment="Stretch" VerticalAlignment="Center">
                 <my:Map.CredentialsProvider>
                     <my:ApplicationIdCredentialsProvider ApplicationId="Ar7t2aB-CZBXefiAnf_hnJbnC5HDm_NwwnmXnTv2cjKI5udhEFdrusIhOxuWJAE8" />
                 </my:Map.CredentialsProvider>
