@@ -25,6 +25,10 @@ namespace Geopeana
         googleCityLookup cityFinder;
         ScrollViewer scrollViewer;
 
+        double lat; double lon;
+        bool searchInProgress;
+        int page = 0;
+
         // Constructor
         public MainPage()
         {
@@ -93,6 +97,12 @@ namespace Geopeana
 
         private void phoneGPS_posFoundEvent(double lat, double lon)
         {
+            if (lat == this.lat && lon == this.lon)
+                return;
+
+            this.lat = lat;
+            this.lon = lon;
+
             cityFinder.SendRequest(lat, lon);
             EuropeanaAPI.lookup(lat, lon);
         }
@@ -129,6 +139,8 @@ namespace Geopeana
         //Show the searchresults in the list
         void EuropeanaAPI_searchDoneEvent(XElement SearchResults)
         {
+            searchInProgress = false;
+
             if (SearchResults == null)
             {
                 prog.IsIndeterminate = false;
@@ -136,6 +148,7 @@ namespace Geopeana
                 return;
             }
 
+            /*
             ResultsListBox.ItemsSource = from item in SearchResults.Element("channel").Descendants("item")
                                          select new EUPItem
                                          {
@@ -143,10 +156,22 @@ namespace Geopeana
                                              Link = item.Element("guid").Value,
                                              Title = item.Element("title").Value
                                          };
+            */
+            var items = from item in SearchResults.Element("channel").Descendants("item")
+                                         select new EUPItem
+                                         {
+                                             Thumbnail = item.Element("enclosure") != null ? item.Element("enclosure").Attribute("url").Value : "image_not_available.jpg",
+                                             Link = item.Element("guid").Value,
+                                             Title = item.Element("title").Value
+                                         };
+            foreach (var item in items)
+            {
+                ResultsListBox.Items.Add(item);
+            }
 
             if (ResultsListBox.Items.Count > 0)
             {
-                Dispatcher.BeginInvoke(new Action(delegate() { ResultsListBox.ScrollIntoView(ResultsListBox.Items[0]); }));
+                //Dispatcher.BeginInvoke(new Action(delegate() { ResultsListBox.ScrollIntoView(ResultsListBox.Items[0]); }));
                 prog.IsIndeterminate = false;
                 prog.IsVisible = false;
 
@@ -173,9 +198,16 @@ namespace Geopeana
             ResultsListBox.EnsureBoundToScrollViewer();
         }
 
-        private void ResultsListBox_ApproachingEndOfListEvent()
+        private void ResultsListBox_ApproachingEndOfListEvent( object sender, EventArgs e )
         {
             // increment page here, search and retrieve more results
+            if (!searchInProgress)
+            {
+                page++;
+                EuropeanaAPI.lookup(lat, lon, page);
+                searchInProgress = true;
+                
+            }
         }
     }
 }

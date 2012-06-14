@@ -13,9 +13,10 @@ using System.Linq;
 
 namespace Geopeana
 {
+
     public class DynamicListBox : ListBox
     {
-        public delegate void ApproachingEndOfList();
+        public delegate void ApproachingEndOfList(object sender, EventArgs e);
         public event ApproachingEndOfList ApproachingEndOfListEvent;
 
         private ScrollViewer _sv;
@@ -37,7 +38,7 @@ namespace Geopeana
             if (_sv.VerticalOffset >= _sv.ScrollableHeight - _sv.ViewportHeight )
             {
                 if (ApproachingEndOfListEvent != null)
-                    ApproachingEndOfListEvent();
+                    ApproachingEndOfListEvent( this, new EventArgs() );
             }
         }
 
