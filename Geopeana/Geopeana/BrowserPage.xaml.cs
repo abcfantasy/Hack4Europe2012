@@ -157,5 +157,10 @@ namespace Geopeana
             public string Link { get; set; }
             public string Thumbnail { get; set; }
         }
+
+        private void ApplicationBarIconButton_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/AdvancedSearch.xaml", UriKind.Relative));
+        }
     }
 }
