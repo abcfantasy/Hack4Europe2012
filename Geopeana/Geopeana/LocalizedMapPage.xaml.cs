@@ -22,18 +22,20 @@ namespace Geopeana
         private double currentLat;
         private double currentLon;
         private MapLayer imageLayer;
+        private Canvas detailsCanvas;
+        private Image detailsImage;
 
         public LocalizedMapPage()
         {
             InitializeComponent();
 
+            // test data
+            LocationData.Instance["http://www.europeana.eu/portal/record/08547/6A0C00645813BEF4B4D7CDB36AFAFB9524B99F97.srw?wskey=ZICPOGYUWT"] = new SimpleCoordinates(14.508628, 35.896);
+            LocationData.Instance["bcd"] = new SimpleCoordinates(14.505367, 35.894453);
+
             GPS gps = new GPS();
             gps.posFoundEvent += new GPS.posFound(gps_posFoundEvent);
             gps.GetPosition();
-
-            // test data
-            //LocationData.Instance["abc"] = new SimpleCoordinates("Valletta", 14.508628, 35.896);
-            //LocationData.Instance["bcd"] = new SimpleCoordinates("Valletta", 14.505367, 35.894453);
         }
 
         void gps_posFoundEvent(double lat, double lon)
@@ -41,6 +43,7 @@ namespace Geopeana
             //googleCityLookup cityLookup = new googleCityLookup(lat, lon);
             currentLat = lat;
             currentLon = lon;
+            InitializeMap();
             //cityLookup.cityFoundEvent += new googleCityLookup.cityFound(cityLookup_cityFoundEvent);
         }
 
@@ -60,6 +63,9 @@ namespace Geopeana
 
             imageLayer = new MapLayer();
             map1.Children.Add(imageLayer);
+
+            detailsCanvas = new Canvas();
+            map1.Children.Add(detailsCanvas);
 
             // loop through localized entries
             while ( localizedEntries.MoveNext() )
@@ -93,17 +99,37 @@ namespace Geopeana
         }
 
         void pin_Tap(object sender, GestureEventArgs e)
-        {
-            throw new NotImplementedException();
-            /*
+        {            
             string guid = (String)((Image)e.OriginalSource).Tag;
+
+            //GuidHelper guidHelper = new GuidHelper();
             
-            TextBlock t = new TextBlock();
-            t.Margin = new Thickness(10.0, 10.0, 0.0, 0.0);
-            t.Height = 20;
-            t.Width = 50;
-            t.Text = guid;
-            map1.Children.Add(t);*/
+            if (detailsImage != null)
+            {
+                detailsImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("http://mjtrading.dk/files/images/test-pattern-clock_4767.jpg", UriKind.Absolute));
+                detailsImage.Tag = guid;
+            }
+            else
+            {
+                detailsImage = new Image();
+                detailsImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("http://www.youngmoneymagazine.co.uk/wordpress/wp-content/uploads/2011/12/test-image.jpg", UriKind.Absolute));
+                detailsImage.MaxHeight = 128.0;
+                detailsImage.MaxWidth = 128.0;
+                detailsImage.Stretch = Stretch.UniformToFill;
+                detailsImage.Tag = guid;
+                detailsImage.Tap += new EventHandler<GestureEventArgs>(detailsImage_Tap);
+                Canvas.SetLeft(detailsImage, 10.0);
+                Canvas.SetTop(detailsImage, 10.0);
+                detailsCanvas.Children.Add(detailsImage);
+            }
         }
+
+        void detailsImage_Tap(object sender, GestureEventArgs e)
+        {
+            string guid = (String)( (Image)e.OriginalSource ).Tag;
+            NavigationService.Navigate(new Uri("/Details.xaml?selectedItem=" + guid, UriKind.Relative));
+        }
+
+        
     }
 }
