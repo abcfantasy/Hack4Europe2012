@@ -95,7 +95,7 @@ namespace Geopeana
                     pinImage.Opacity = 0.9;
                     pinImage.Stretch = System.Windows.Media.Stretch.None;
                     pinImage.Tag = entry.Key;
-                    pinImage.Tap += new EventHandler<GestureEventArgs>(pin_Tap);
+                    pinImage.Tap += new EventHandler<System.Windows.Input.GestureEventArgs>(pin_Tap);
 
                     imageLayer.AddChild(pinImage, location);
                 }
@@ -110,7 +110,7 @@ namespace Geopeana
             return ((currentLat - lat <= 0.1) && (currentLat - lat >= -0.1) && (currentLon - lon <= 0.1) && (currentLon - lon >= -0.1));
         }
 
-        void pin_Tap(object sender, GestureEventArgs e)
+        void pin_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {            
             string guid = (String)((Image)e.OriginalSource).Tag;
 
@@ -134,14 +134,14 @@ namespace Geopeana
                 detailsImage.MaxWidth = 128.0;
                 detailsImage.Stretch = Stretch.UniformToFill;
                 detailsImage.Tag = detailsUrl;
-                detailsImage.Tap += new EventHandler<GestureEventArgs>(detailsImage_Tap);
+                detailsImage.Tap += new EventHandler<System.Windows.Input.GestureEventArgs>(detailsImage_Tap);
                 Canvas.SetLeft(detailsImage, 10.0);
                 Canvas.SetTop(detailsImage, 10.0);
                 detailsCanvas.Children.Add(detailsImage);
             }
         }
 
-        void detailsImage_Tap(object sender, GestureEventArgs e)
+        void detailsImage_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             string url = (String)( (Image)e.OriginalSource ).Tag;
             NavigationService.Navigate(new Uri("/Details.xaml?selectedItem=" + url, UriKind.Relative));

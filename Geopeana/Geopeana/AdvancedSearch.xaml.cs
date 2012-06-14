@@ -18,6 +18,32 @@ namespace Geopeana
         public Page1()
         {
             InitializeComponent();
+
+            fromYearPicker.Visibility = Visibility.Collapsed;
+            toYearPicker.Visibility = Visibility.Collapsed;
         }
+
+        private void fromLimitCheck_Checked(object sender, RoutedEventArgs e)
+        {
+            fromYearPicker.Visibility = Visibility.Visible;
+        }
+
+        private void toLimitCheck_Checked(object sender, RoutedEventArgs e)
+        {
+            toYearPicker.Visibility = Visibility.Visible;
+        }
+
+        private void toLimitCheck_Unchecked(object sender, RoutedEventArgs e)
+        {
+            toYearPicker.Visibility = Visibility.Collapsed;
+        }
+
+        private void fromLimitCheck_Unchecked(object sender, RoutedEventArgs e)
+        {
+            fromYearPicker.Visibility = Visibility.Collapsed;
+        }
+
+
+
     }
 }

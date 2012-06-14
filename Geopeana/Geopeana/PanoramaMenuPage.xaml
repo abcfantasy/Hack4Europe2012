@@ -27,12 +27,12 @@
             <!--Panorama item two-->
             <controls:PanoramaItem Header="Recent" Tag="Recent">
                 <Grid>
-                    <TextBlock Height="445" HorizontalAlignment="Left" Margin="2,0,0,0" Name="textBlock1" Text="This is  a list of recent visits" VerticalAlignment="Top" Width="393" />
+                    <ListBox Height="498" HorizontalAlignment="Left" Margin="2,0,0,0" Name="RecentListBox" VerticalAlignment="Top" Width="420" />
                 </Grid>
             </controls:PanoramaItem>
             <controls:PanoramaItem Header="Favorites" Tag="Favorites">
                 <Grid>
-                    <TextBlock Height="445" HorizontalAlignment="Left" Margin="10,10,0,0" Name="textBlock2" Text="This is  a list of my favorite items" VerticalAlignment="Top" Width="393" />
+                    <ListBox Height="501" HorizontalAlignment="Left" Margin="-12,-3,0,0" Name="FavoritesListBox" VerticalAlignment="Top" Width="424" />
                 </Grid>
             </controls:PanoramaItem>
             <controls:Panorama.Background>

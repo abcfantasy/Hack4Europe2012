@@ -51,6 +51,7 @@
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Controls.Maps, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" />
+    <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604" />
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="System.Device" />
     <Reference Include="System.Runtime.Serialization" />
@@ -138,6 +139,7 @@
     <Resource Include="flag_bg.jpg" />
     <Resource Include="flag_bg_large.jpg" />
     <Resource Include="image_not_available.jpg" />
+    <Content Include="countries.txt" />
     <Content Include="Images\advancedSearch.png" />
     <Content Include="Koala.jpg" />
     <Content Include="SplashScreenImage.jpg" />
