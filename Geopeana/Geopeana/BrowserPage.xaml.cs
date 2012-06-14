@@ -27,7 +27,7 @@ namespace Geopeana
 
         double lat; double lon;
         bool searchInProgress;
-        int page = 0;
+        int page = 1;
 
         // Constructor
         public MainPage()
