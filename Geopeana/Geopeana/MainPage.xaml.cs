@@ -82,8 +82,8 @@ namespace Geopeana
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-        
         EuropeanaAPI.lookup(CityBox.Text);
+        
         }
 
         //Show the searchresults in the list
@@ -96,7 +96,8 @@ namespace Geopeana
                                             Link = item.Element("guid").Value,
                                             Title = item.Element("title").Value
                                         };
-
+        if(ResultsListBox.Items.Count>0)
+            Dispatcher.BeginInvoke(new Action(delegate() { ResultsListBox.ScrollIntoView(ResultsListBox.Items[0]); }));
         }
         
 

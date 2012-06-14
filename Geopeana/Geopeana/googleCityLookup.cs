@@ -78,7 +78,7 @@ namespace Geopeana
                        select (string)component.Element("long_name").Value;
                 City = adresse.First<string>();
 
-                cityFoundEvent(City);
+                if (cityFoundEvent !=null) cityFoundEvent(City);
             }
             #endregion
         }

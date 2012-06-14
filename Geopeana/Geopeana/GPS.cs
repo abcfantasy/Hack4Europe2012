@@ -73,7 +73,7 @@ namespace Geopeana
             }
             lat  = e.Position.Location.Latitude;
             lon  = e.Position.Location.Longitude;
-            posFoundEvent(lat, lon);
+            if(posFoundEvent !=null) posFoundEvent(lat, lon);
             gcw.Stop();
         }
     }
