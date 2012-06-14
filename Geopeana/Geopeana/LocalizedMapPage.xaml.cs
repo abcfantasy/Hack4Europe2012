@@ -30,7 +30,7 @@ namespace Geopeana
             InitializeComponent();
 
             // test data
-            LocationData.Instance["http://www.europeana.eu/portal/record/08547/6A0C00645813BEF4B4D7CDB36AFAFB9524B99F97.srw?wskey=ZICPOGYUWT"] = new SimpleCoordinates(14.508628, 35.896);
+            LocationData.Instance["http://www.europeana.eu/portal/record/08547/6A0C00645813BEF4B4D7CDB36AFAFB9524B99F97.html"] = new SimpleCoordinates(14.508628, 35.896);
             LocationData.Instance["bcd"] = new SimpleCoordinates(14.505367, 35.894453);
 
             GPS gps = new GPS();
@@ -59,7 +59,7 @@ namespace Geopeana
 
             // get all localized entries
             IEnumerator localizedEntries = LocationData.Instance.GetEnumerator();
-            List<GeoCoordinate> locations = new List<GeoCoordinate>();
+            //List<GeoCoordinate> locations = new List<GeoCoordinate>();
 
             imageLayer = new MapLayer();
             map1.Children.Add(imageLayer);
@@ -76,7 +76,7 @@ namespace Geopeana
                 {
                     //Pushpin pin = new Pushpin();
                     GeoCoordinate location = new System.Device.Location.GeoCoordinate(entry.Value.Latitude, entry.Value.Longitude);
-                    locations.Add(location);
+                   // locations.Add(location);
 
                     Image pinImage = new Image();
                     pinImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("marker-red.png", UriKind.Relative));
@@ -90,7 +90,7 @@ namespace Geopeana
             }
 
             // set map view
-            map1.SetView( LocationRect.CreateLocationRect(locations) );
+            map1.SetView(new GeoCoordinate(currentLat, currentLon), 15.0);
         }
 
         private bool LocationIsClose(double lat, double lon)
