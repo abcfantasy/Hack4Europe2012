@@ -48,8 +48,20 @@ namespace Geopeana
 
         public void lookup(string keyword, string country)
         {
+            //check for yearlimits
+            string curYear = DateTime.Now.Year.ToString();
+            string timeelement="";
+            if(SearchFilter.fromLimit && SearchFilter.toLimit)
+                timeelement = "+AND+enrichment_period_begin%3A["+SearchFilter.fromYear+"-01-01T00%3A00%3A00Z+TO+"+SearchFilter.toYear+"-01-01T23%3A59%3A59Z]+AND+enrichment_period_end%3A["+SearchFilter.fromYear+"-01-01T00%3A00%3A00Z+TO+"+SearchFilter.toYear+"-01-01T23%3A59%3A59Z]";
+            else if(SearchFilter.fromLimit)
+                timeelement = "+AND+enrichment_period_begin%3A["+SearchFilter.fromYear+"-01-01T00%3A00%3A00Z+TO+"+curYear+"-01-01T23%3A59%3A59Z]+AND+enrichment_period_end%3A["+SearchFilter.fromYear+"-01-01T00%3A00%3A00Z+TO+"+curYear+"-01-01T23%3A59%3A59Z]";
+            else if(SearchFilter.toLimit)
+                timeelement = "+AND+enrichment_period_begin%3A[" + 0 + "-01-01T00%3A00%3A00Z+TO+" + SearchFilter.toYear + "-01-01T23%3A59%3A59Z]+AND+enrichment_period_end%3A[" + 0 + "-01-01T00%3A00%3A00Z+TO+" + SearchFilter.toYear + "-01-01T23%3A59%3A59Z]";
+
+
             // Build the query string
-            query = "http://api.europeana.eu/api/opensearch.rss?searchTerms=" + keyword + "+AND+europeana_type:*IMAGE*+AND+europeana_country:*" + country.ToLower() + "*&wskey=" + Europeana_API_key;
+
+            query = "http://api.europeana.eu/api/opensearch.rss?searchTerms=" + keyword + timeelement+ "+AND+europeana_type:*IMAGE*+AND+europeana_country:*" + country.ToLower() + "*&wskey=" + Europeana_API_key;
 
             WebClient EuropeanaClient = new WebClient();
             EuropeanaClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(EUP_DownloadStringCompleted);
