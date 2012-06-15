@@ -25,9 +25,13 @@ namespace Geopeana
         googleCityLookup cityFinder;
         ScrollViewer scrollViewer;
 
+<<<<<<< HEAD
         double lat; double lon;
         bool searchInProgress;
         int page = 1;
+=======
+        String Country;
+>>>>>>> fetching country
 
         // Constructor
         public MainPage()
@@ -107,8 +111,10 @@ namespace Geopeana
             EuropeanaAPI.lookup(lat, lon);
         }
 
-        public void cityFinder_cityFoundEvent(string city)
+        public void cityFinder_cityFoundEvent(string city, string country)
         {
+            Country = country;
+
             prog.Text = "Current city: " + city;
             prog.IsIndeterminate = true;
             prog.IsVisible = true;

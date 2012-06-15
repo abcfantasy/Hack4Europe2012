@@ -24,9 +24,9 @@ namespace Geopeana
 
             private string Street { get; set; }
             public string City { get; set; }
-            private string Country { get; set; }
+            public string Country { get; set; }
 
-            public delegate void cityFound(string city);
+            public delegate void cityFound(string city, string country);
             public event cityFound cityFoundEvent;
             
             #endregion
@@ -64,7 +64,13 @@ namespace Geopeana
                 
                 City = adresse.Count<string>() > 0 ? adresse.First<string>() : "";
 
-                if (cityFoundEvent != null) cityFoundEvent(City);
+                IEnumerable<string> adresse2 = from component in address.Descendants("address_component")
+                                              where (string)component.Element("type").Value == "country"
+                                              select (string)component.Element("long_name").Value;
+
+                Country = adresse2.Count<string>() > 0 ? adresse2.First<string>() : "";
+
+                if (cityFoundEvent != null) cityFoundEvent(City, Country);
             }
             #endregion
         }

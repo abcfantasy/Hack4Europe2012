@@ -21,10 +21,20 @@ namespace Geopeana
         public event searchDone searchDoneEvent;
         private static readonly string Europeana_API_key = "ZICPOGYUWT";
 
-        public void lookup(string city)
+        public void lookup(string keyword)
         {
             // Build the query string
-            string query = "http://api.europeana.eu/api/opensearch.rss?searchTerms=" + city + "+AND+europeana_type:*IMAGE*&wskey=" + Europeana_API_key;
+            string query = "http://api.europeana.eu/api/opensearch.rss?searchTerms=" + keyword + "+AND+europeana_type:*IMAGE*&wskey=" + Europeana_API_key;
+
+            WebClient EuropeanaClient = new WebClient();
+            EuropeanaClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(EUP_DownloadStringCompleted);
+            EuropeanaClient.DownloadStringAsync(new Uri(query));
+        }
+
+        public void lookup(string keyword, string country)
+        {
+            // Build the query string
+            string query = "http://api.europeana.eu/api/opensearch.rss?searchTerms=" + keyword + "+AND+europeana_type:*IMAGE*+AND+europeana_country:*" + country + "*&wskey=" + Europeana_API_key;
 
             WebClient EuropeanaClient = new WebClient();
             EuropeanaClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(EUP_DownloadStringCompleted);
