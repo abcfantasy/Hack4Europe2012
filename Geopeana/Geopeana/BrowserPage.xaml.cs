@@ -113,7 +113,7 @@ namespace Geopeana
         {
             Country = country;
 
-            //SearchFilter.country = country;
+            SearchFilter.country = country;
             prog.Text = "Current city: " + city;
             prog.IsIndeterminate = true;
             prog.IsVisible = true;

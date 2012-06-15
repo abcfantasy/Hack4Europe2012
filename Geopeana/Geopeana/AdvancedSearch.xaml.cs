@@ -30,16 +30,7 @@ namespace Geopeana
 
 
             
-            XElement countries = XElement.Load("countries.xml"); 
-      
-
-            var items = from entry in countries.Elements("country")
-                                        select new CountryItem{country = (string) entry.Value};
-            foreach (var item in items)
-            {
-                CountryListPicker.Items.Add(item.country);
-            }
-            firstLoad = false;
+            
         }
 
         public class CountryItem
@@ -76,14 +67,25 @@ namespace Geopeana
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-            //    CountryListPicker.SelectedItem = SearchFilter.country;
-            //}
-            //catch
-            //{
-            //    CountryListPicker.SelectedItem = "All Europe";
-            //}
+            XElement countries = XElement.Load("countries.xml");
+
+
+            var items = from entry in countries.Elements("country")
+                        select new CountryItem { country = (string)entry.Value };
+            foreach (var item in items)
+            {
+                CountryListPicker.Items.Add(item.country);
+            }
+            firstLoad = false;
+
+            try
+            {
+                CountryListPicker.SelectedItem = SearchFilter.country;
+            }
+            catch
+            {
+                CountryListPicker.SelectedItem = "All Europe";
+            }
         }
 
 
