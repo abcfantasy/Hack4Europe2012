@@ -10,6 +10,9 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using System.Xml.Linq;
+using System.Windows.Resources;
+using System.IO;
 
 namespace Geopeana
 {
@@ -21,10 +24,28 @@ namespace Geopeana
 
             fromYearPicker.Visibility = Visibility.Collapsed;
             toYearPicker.Visibility = Visibility.Collapsed;
-            string[] countries = {"USA","INDIA"};
 
-            countryPicker.ItemsSource = countries;
+            XElement countries;
+
+            StreamResourceInfo xml =
+            Application.GetResourceStream(new Uri("countries.xml", UriKind.Relative));
+            countries = XElement.Load(xml.Stream);
+             
+      
+
+            var items = from entry in countries.Elements("country")
+                                        select new CountryItem{country = (string) entry.Value};
+            foreach (var item in items)
+            {
+                CountryListPicker.Items.Add(item.country);
+            }
         }
+
+        public class CountryItem
+        {
+            public string country { get; set; }
+        }
+
 
         private void fromLimitCheck_Checked(object sender, RoutedEventArgs e)
         {
