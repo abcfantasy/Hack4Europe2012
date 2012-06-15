@@ -142,8 +142,7 @@
     <Resource Include="flag_bg.jpg" />
     <Resource Include="flag_bg_large.jpg" />
     <Resource Include="image_not_available.jpg" />
-    <Content Include="countries.txt" />
-    <Resource Include="countries.xml" />
+    <Content Include="countries.xml" />
     <Content Include="Images\advancedSearch.png" />
     <Content Include="Koala.jpg" />
     <Content Include="SplashScreenImage.jpg" />

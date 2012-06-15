@@ -13,11 +13,13 @@ using Microsoft.Phone.Controls;
 using System.Xml.Linq;
 using System.Windows.Resources;
 using System.IO;
+using System.Text;
 
 namespace Geopeana
 {
     public partial class Page1 : PhoneApplicationPage
     {
+        
         public Page1()
         {
             InitializeComponent();
@@ -25,12 +27,9 @@ namespace Geopeana
             fromYearPicker.Visibility = Visibility.Collapsed;
             toYearPicker.Visibility = Visibility.Collapsed;
 
-            XElement countries;
 
-            StreamResourceInfo xml =
-            Application.GetResourceStream(new Uri("countries.xml", UriKind.Relative));
-            countries = XElement.Load(xml.Stream);
-             
+            
+            XElement countries = XElement.Load("countries.xml"); 
       
 
             var items = from entry in countries.Elements("country")
@@ -49,22 +48,22 @@ namespace Geopeana
 
         private void fromLimitCheck_Checked(object sender, RoutedEventArgs e)
         {
-            fromYearPicker.Visibility = Visibility.Visible;
+            fromTextBox.Visibility = Visibility.Visible;
         }
 
         private void toLimitCheck_Checked(object sender, RoutedEventArgs e)
         {
-            toYearPicker.Visibility = Visibility.Visible;
+            toTextBox.Visibility = Visibility.Visible;
         }
 
         private void toLimitCheck_Unchecked(object sender, RoutedEventArgs e)
         {
-            toYearPicker.Visibility = Visibility.Collapsed;
+            toTextBox.Visibility = Visibility.Collapsed;
         }
 
         private void fromLimitCheck_Unchecked(object sender, RoutedEventArgs e)
         {
-            fromYearPicker.Visibility = Visibility.Collapsed;
+            fromTextBox.Visibility = Visibility.Collapsed;
         }
 
 
