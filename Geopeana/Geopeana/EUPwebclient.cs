@@ -23,18 +23,25 @@ namespace Geopeana
 
         public void lookup(string keyword)
         {
-            // Build the query string
-            string query = "http://api.europeana.eu/api/opensearch.rss?searchTerms=" + keyword + "+AND+europeana_type:*IMAGE*&wskey=" + Europeana_API_key;
+            if (SearchFilter.country == "All Europe")
+            {
+                // Build the query string
+                string query = "http://api.europeana.eu/api/opensearch.rss?searchTerms=" + keyword + "+AND+europeana_type:*IMAGE*&wskey=" + Europeana_API_key;
 
-            WebClient EuropeanaClient = new WebClient();
-            EuropeanaClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(EUP_DownloadStringCompleted);
-            EuropeanaClient.DownloadStringAsync(new Uri(query));
+                WebClient EuropeanaClient = new WebClient();
+                EuropeanaClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(EUP_DownloadStringCompleted);
+                EuropeanaClient.DownloadStringAsync(new Uri(query));
+            }
+            else
+            {
+                lookup(keyword, SearchFilter.country);
+            }
         }
 
         public void lookup(string keyword, string country)
         {
             // Build the query string
-            string query = "http://api.europeana.eu/api/opensearch.rss?searchTerms=" + keyword + "+AND+europeana_type:*IMAGE*+AND+europeana_country:*" + country + "*&wskey=" + Europeana_API_key;
+            string query = "http://api.europeana.eu/api/opensearch.rss?searchTerms=" + keyword + "+AND+europeana_type:*IMAGE*+AND+europeana_country:*" + country.ToLower() + "*&wskey=" + Europeana_API_key;
 
             WebClient EuropeanaClient = new WebClient();
             EuropeanaClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(EUP_DownloadStringCompleted);

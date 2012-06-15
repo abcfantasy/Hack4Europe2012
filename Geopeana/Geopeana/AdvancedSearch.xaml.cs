@@ -19,13 +19,14 @@ namespace Geopeana
 {
     public partial class Page1 : PhoneApplicationPage
     {
+        Boolean firstLoad = true;
         
         public Page1()
         {
             InitializeComponent();
 
-            fromYearPicker.Visibility = Visibility.Collapsed;
-            toYearPicker.Visibility = Visibility.Collapsed;
+            fromTextBox.Visibility = Visibility.Collapsed;
+            toTextBox.Visibility = Visibility.Collapsed;
 
 
             
@@ -38,6 +39,7 @@ namespace Geopeana
             {
                 CountryListPicker.Items.Add(item.country);
             }
+            firstLoad = false;
         }
 
         public class CountryItem
@@ -64,6 +66,24 @@ namespace Geopeana
         private void fromLimitCheck_Unchecked(object sender, RoutedEventArgs e)
         {
             fromTextBox.Visibility = Visibility.Collapsed;
+        }
+
+        private void CountryListPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!firstLoad)
+                SearchFilter.country = CountryListPicker.SelectedItem.ToString();
+        }
+
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            //try
+            //{
+            //    CountryListPicker.SelectedItem = SearchFilter.country;
+            //}
+            //catch
+            //{
+            //    CountryListPicker.SelectedItem = "All Europe";
+            //}
         }
 
 
