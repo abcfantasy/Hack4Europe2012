@@ -30,7 +30,7 @@ namespace Geopeana
             base.OnNavigatedTo(e);
 
             string msg = "";
-
+            
             if (NavigationContext.QueryString.TryGetValue("selectedItem", out msg))
             {
                 guid = msg;
@@ -38,10 +38,19 @@ namespace Geopeana
                 // Add to recent entry visits
                 RecentData.Instance.AddToRecent(guid);
 
+                // was entry faved?
                 if (FavoriteData.Instance.Contains(guid))
                 {
                     buttonFav.Content = "Faved!";
                     buttonFav.IsEnabled = false;
+                }
+
+                // was entry pinned?
+                if (LocationData.Instance.Contains(guid))
+                {
+                    PinIt.Content = "Unpin it";
+                    PinIt.Click -= PinIt_Click;
+                    PinIt.Click += new RoutedEventHandler(UnpinIt_Click);
                 }
 
                 try
@@ -60,6 +69,14 @@ namespace Geopeana
             GPS gps = new GPS();
             gps.posFoundEvent += new GPS.posFound(gps_posFoundEvent);
             NavigationService.Navigate(new Uri("/SuccessPage.xaml", UriKind.Relative));
+        }
+
+        private void UnpinIt_Click(object sender, RoutedEventArgs e)
+        {
+            LocationData.Instance.Remove(guid);
+            PinIt.Content = "Pin It!";
+            PinIt.Click -= UnpinIt_Click;
+            PinIt.Click += new RoutedEventHandler(PinIt_Click);
         }
 
         void gps_posFoundEvent(double lat, double lon)

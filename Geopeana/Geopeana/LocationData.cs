@@ -54,9 +54,21 @@ namespace Geopeana
             }
         }
 
+        public void Remove(string guid)
+        {
+            if (data.ContainsKey(guid))
+                data.Remove(guid);
+            Save();
+        }
+
         public Dictionary<string, SimpleCoordinates>.Enumerator GetEnumerator()
         {
             return data.GetEnumerator();
+        }
+
+        public bool Contains(string guid)
+        {
+            return data.ContainsKey(guid);
         }
 
         public void Save()
