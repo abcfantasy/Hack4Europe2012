@@ -15,7 +15,9 @@ namespace Geopeana
     {
         public static string country = "France";
         public static int toYear = 0;
+        public static Boolean toLimit = false;
         public static int fromYear = 0;
+        public static Boolean fromLimit = false;
         public static Boolean unplaced = false;
 
     }

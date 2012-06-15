@@ -40,8 +40,20 @@
             <CheckBox Content="Limit &quot;from&quot; year" Height="72" HorizontalAlignment="Left" Margin="37,234,0,0" Name="fromLimitCheck" VerticalAlignment="Top" Width="237" Checked="fromLimitCheck_Checked" Unchecked="fromLimitCheck_Unchecked" />
             <CheckBox Content="Limit &quot;to&quot; year" Height="72" HorizontalAlignment="Left" Margin="37,312,0,0" Name="toLimitCheck" VerticalAlignment="Top" Width="237" Checked="toLimitCheck_Checked" Unchecked="toLimitCheck_Unchecked" />
             <toolkit:ListPicker Height="Auto" HorizontalAlignment="Left" Margin="37,50,0,0" Name="CountryListPicker" VerticalAlignment="Top" Width="371" SelectionChanged="CountryListPicker_SelectionChanged" />
-            <TextBox Height="72" HorizontalAlignment="Left" Margin="280,234,0,0" Name="fromTextBox" Text="TextBox" VerticalAlignment="Top" Width="188" />
-            <TextBox Height="72" HorizontalAlignment="Left" Margin="280,312,0,0" Name="toTextBox" Text="TextBox" VerticalAlignment="Top" Width="188" />
+            <TextBox Height="72" HorizontalAlignment="Left" Margin="280,234,0,0" Name="fromTextBox" Text="" VerticalAlignment="Top" Width="188" TextChanged="fromTextBox_TextChanged">
+                <TextBox.InputScope>
+                    <InputScope>             
+                        <InputScopeName NameValue="Digits" />
+                    </InputScope>
+                </TextBox.InputScope>
+            </TextBox>
+            <TextBox Height="72" HorizontalAlignment="Left" Margin="280,312,0,0" Name="toTextBox" Text="" VerticalAlignment="Top" Width="188" TextChanged="toTextBox_TextChanged">
+                <TextBox.InputScope>
+                    <InputScope>
+                        <InputScopeName NameValue="Digits" />
+                    </InputScope>
+                </TextBox.InputScope>
+            </TextBox>
         </Grid>
     </Grid>
  

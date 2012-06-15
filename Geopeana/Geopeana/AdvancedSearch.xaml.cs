@@ -42,21 +42,25 @@ namespace Geopeana
         private void fromLimitCheck_Checked(object sender, RoutedEventArgs e)
         {
             fromTextBox.Visibility = Visibility.Visible;
+            SearchFilter.fromLimit = true;
         }
 
         private void toLimitCheck_Checked(object sender, RoutedEventArgs e)
         {
             toTextBox.Visibility = Visibility.Visible;
+            SearchFilter.toLimit = true;
         }
 
         private void toLimitCheck_Unchecked(object sender, RoutedEventArgs e)
         {
             toTextBox.Visibility = Visibility.Collapsed;
+            SearchFilter.toLimit = false;
         }
 
         private void fromLimitCheck_Unchecked(object sender, RoutedEventArgs e)
         {
             fromTextBox.Visibility = Visibility.Collapsed;
+            SearchFilter.fromLimit = false;
         }
 
         private void CountryListPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -86,6 +90,16 @@ namespace Geopeana
             {
                 CountryListPicker.SelectedItem = "All Europe";
             }
+        }
+
+        private void fromTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchFilter.fromYear = int.Parse(fromTextBox.Text);
+        }
+
+        private void toTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchFilter.toYear = int.Parse(toTextBox.Text);
         }
 
 
