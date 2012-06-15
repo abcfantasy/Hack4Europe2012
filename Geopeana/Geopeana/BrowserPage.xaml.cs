@@ -175,7 +175,8 @@ namespace Geopeana
                                          };
             foreach (var item in items)
             {
-                ResultsListBox.Items.Add(item);
+                if ( !(SearchFilter.unplaced && LocationData.Instance.Contains(item.Link) ) )
+                    ResultsListBox.Items.Add(item);
             }
 
             if (ResultsListBox.Items.Count > 0)
@@ -206,7 +207,7 @@ namespace Geopeana
             if (!searchInProgress)
             {
                 page++;
-                EuropeanaAPI.lookup(lat, lon, page);
+                EuropeanaAPI.repeatSearch(page);
                 searchInProgress = true;
                 
             }

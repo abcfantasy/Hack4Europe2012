@@ -90,6 +90,19 @@ namespace Geopeana
             {
                 CountryListPicker.SelectedItem = "All Europe";
             }
+
+            // year boxes
+            if (SearchFilter.fromLimit)
+            {
+                fromLimitCheck.IsChecked = true;
+                fromTextBox.Text = SearchFilter.fromYear.ToString();
+            }
+            if (SearchFilter.toLimit)
+            {
+                toLimitCheck.IsChecked = true;
+                toTextBox.Text = SearchFilter.toYear.ToString();
+            }
+            unplacedCheck.IsChecked = SearchFilter.unplaced;
         }
 
         private void fromTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -100,6 +113,11 @@ namespace Geopeana
         private void toTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             SearchFilter.toYear = int.Parse(toTextBox.Text);
+        }
+
+        private void unplacedCheck_Checked(object sender, RoutedEventArgs e)
+        {
+            SearchFilter.unplaced = (bool)unplacedCheck.IsChecked;
         }
 
 
