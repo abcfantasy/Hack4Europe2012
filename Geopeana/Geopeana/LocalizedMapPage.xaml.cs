@@ -40,6 +40,25 @@ namespace Geopeana
             this.BackKeyPress += new EventHandler<System.ComponentModel.CancelEventArgs>(MainPage_BackKeyPress);
         }
 
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            
+            //check removed pins
+            if (imageLayer != null)
+            {
+                for ( int i = 0; i < imageLayer.Children.Count; i++ )
+                {
+                    if (!LocationData.Instance.Contains((string)((Image)imageLayer.Children[i]).Tag))
+                    {
+                        imageLayer.Children.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+            if (detailsImage != null)
+                detailsImage.Source = null;
+        }
         void MainPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
