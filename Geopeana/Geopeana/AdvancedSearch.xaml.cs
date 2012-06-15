@@ -107,12 +107,14 @@ namespace Geopeana
 
         private void fromTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            SearchFilter.fromYear = int.Parse(fromTextBox.Text);
+            if (fromTextBox.Text != "")
+                SearchFilter.fromYear = int.Parse(fromTextBox.Text);
         }
 
         private void toTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            SearchFilter.toYear = int.Parse(toTextBox.Text);
+            if(toTextBox.Text!="")
+                SearchFilter.toYear = int.Parse(toTextBox.Text);
         }
 
         private void unplacedCheck_Checked(object sender, RoutedEventArgs e)

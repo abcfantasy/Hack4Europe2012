@@ -19,8 +19,8 @@
             <!--Panorama item one-->
             <controls:PanoramaItem Header="Menu" HorizontalAlignment="Left" Tag="Menu">
                 <Grid VerticalAlignment="Stretch" HorizontalAlignment="Left">
-                    <TextBlock Height="61" HorizontalAlignment="Left" Margin="10,17,0,0" Name="browseTextBlock" Text="Search Europeana" VerticalAlignment="Top" FontSize="32" Width="308" />
-                    <TextBlock FontSize="32" Height="61" HorizontalAlignment="Left" Margin="10,72,0,0" Name="MapTextBlock" Text="Show nearby items on map" VerticalAlignment="Top" Width="384" />
+                    <TextBlock Height="61" HorizontalAlignment="Left" Margin="10,17,0,0" Name="browseTextBlock" Text="Search Europeana" VerticalAlignment="Top" FontSize="36" Width="308" />
+                    <TextBlock FontSize="36" Height="61" HorizontalAlignment="Left" Margin="10,87,0,0" Name="MapTextBlock" Text="Show nearby items on map" VerticalAlignment="Top" Width="384" />
                 </Grid>
             </controls:PanoramaItem>
 
