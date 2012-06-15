@@ -149,8 +149,8 @@ namespace Geopeana
             {
                 detailsImage = new Image();
                 detailsImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(imageUrl, UriKind.Absolute));
-                detailsImage.MaxHeight = 128.0;
-                detailsImage.MaxWidth = 128.0;
+                detailsImage.MaxHeight = 256.0;
+                detailsImage.MaxWidth = 256.0;
                 detailsImage.Stretch = Stretch.UniformToFill;
                 detailsImage.Tag = guid;
                 detailsImage.Tap += new EventHandler<System.Windows.Input.GestureEventArgs>(detailsImage_Tap);
