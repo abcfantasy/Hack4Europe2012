@@ -39,7 +39,7 @@ namespace Geopeana
             // add sample test data
             this["http://www.europeana.eu/portal/record/09421/81F7D02542BF7B77BE9F0DBC1D2017D5503953A5.html"] = new SimpleCoordinates(4.699835, 50.874304);
             this["http://www.europeana.eu/portal/record/09421/401D3574118D2D7166F73946C56FCD73434C1D15.html"] = new SimpleCoordinates(4.698633, 50.877689);
-            this["http://www.europeana.eu/portal/record/09421/A955C740A7C2AA8537E0FD0771C3ED10C806130E.html"] = new SimpleCoordinates(4.706666, 50.878421);
+            this["http://www.europeana.eu/portal/record/92106/FA96E7D51F97A14C7FF2548E03F3CDF14132A8D0.html"] = new SimpleCoordinates(4.706666, 50.878421);
         }
 
         // indexer to get or add entries
